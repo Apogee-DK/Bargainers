@@ -45,3 +45,4 @@ cd php-python
 cd Web
 cd php-python
 python newegg.py 'mouse'
+ungit

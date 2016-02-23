@@ -63,7 +63,7 @@ linkPrices = soup.select(' td.line .listing strong')
 #list of Products
 productList = []
 
-for i in range(numOpen) :
+for i in range(numOpen - 1) :
 
 	elemLink = soup.select(itemRootString + str(i+1) + ' td.line div div span.listing a')
 	#elemPrice = soup.select(itemRootString + str(i+1) + ' td.line font.listing strong')
@@ -78,7 +78,8 @@ for i in range(numOpen) :
 	tempDict['URL'] = elemLink[0].get('href')
 	tempDict['Name'] = elemLink[0].getText()
 	#tempDict['Price'] =  elemPrice[0].getText()
-	price = linkPrices[i+2].getText()
+
+	price = linkPrices[i].getText()
 	price = price.replace("$", "")
 	tempDict['Price'] = price
 

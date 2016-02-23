@@ -74,13 +74,13 @@ for i in range(numOpen) :
 	#print(itemRootString + str(i+1) + ' div.itemAction ul.price price-product-cells has-label-from has-label-membership price-product-cells  input')
 	#print ('PRICE:' + elemPrice[0].get('value'))
 
-	tempDict = {'URL': '', 'Name': '', 'Price': 0.00, 'Photo':''}
+	tempDict = {'URL': '', 'Name': '', 'Price': '', 'Photo':''}
 	tempDict['URL'] = elemLink[0].get('href')
 	tempDict['Name'] = elemLink[0].contents[1].getText()
 
 	price = elemPrice[0].get('value')
 	price = price.replace("$", "")
-	tempDict['Price'] =float(price)
+	tempDict['Price'] = price
 
 	tempDict['Photo'] = elemPic[0].get('src')
 

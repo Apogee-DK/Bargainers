@@ -9,63 +9,50 @@ if (isset($_POST['submitSearch']))
 {
 
 	$query = $_POST['submitSearch'];
-	$JSONresult = exec('python ./php-python/NCIXsearch.py ' . $query );
-	$JSONresult2 = exec('python ./php-python/newegg.py ' . $query );
+	$JSONNCIXresult = exec('python ./php-python/NCIXsearch.py ' . $query );
+	$JSONNeweggresult = exec('python ./php-python/newegg.py ' . $query );
+
+	//echo $JSONNCIXresult;
+	//echo $JSONNeweggresult;
+
+	$allProducts = array();
 
 
-//	echo $JSONresult;
-//	echo $JSONresult2;
+	$JSONNCIXresult = trim($JSONNCIXresult, '[');       //remove the extra brackets
+	$JSONNCIXresult = trim($JSONNCIXresult, ']');
 
-	//$myDict = json_decode(file_get_contents('/tmp/mydict'));
-
-	//decode the JSON $JSONresult
-
-	$JSONresult = trim($JSONresult, '[');       //remove the extra brackets
-	$JSONresult = trim($JSONresult, ']');
-
-	$JSONresult2 = trim($JSONresult2, '[');       //remove the extra brackets
-	$JSONresult2 = trim($JSONresult2, ']');
-
-    $JSONresult = str_replace("}, {", "}==x=={" ,$JSONresult );
-    $JSONresult2 = str_replace("}, {", "}==x=={" ,$JSONresult2 );
-
-    $itemArray = explode("==x==", $JSONresult);
-    $itemArray2 = explode("==x==", $JSONresult2);
-  // echo "=======================================";
-  // var_dump($itemArray);
-  //echo $itemArray[0];
+	if($JSONNCIXresult !== ""){
+	    $JSONNCIXresult = str_replace("}, {", "}==x=={" , $JSONNCIXresult);
+        $itemNCIXArray = explode("==x==", $JSONNCIXresult);
 
 
-    $allProducts = array();
+        foreach ($itemNCIXArray as $value) {
+        //\xa0 is actually non-breaking space in Latin1 (ISO 8859-1), also chr(160). You should replace it with a space.
 
-    foreach ($itemArray as $value) {
+            $itemNCIXExplode = str_replace('\xa0', ' ', $value);
+            $itemNCIXExplode = str_replace("'", '"' , $itemNCIXExplode);                  //replace single quotes with double quotes
+            $itemNCIXExplode = str_replace(': u"', ': "' , $itemNCIXExplode);      //remove unicode mark
+            array_push($allProducts, $itemNCIXExplode);
+        }
+	}
 
-     // echo $value;
+    $JSONNeweggresult = trim($JSONNeweggresult, '[');       //remove the extra brackets
+	$JSONNeweggresult = trim($JSONNeweggresult, ']');
 
-      //\xa0 is actually non-breaking space in Latin1 (ISO 8859-1), also chr(160). You should replace it with a space.
+	if($JSONNeweggresult !== ""){
+	    $JSONNeweggresult = str_replace("}, {", "}==x=={" , $JSONNeweggresult);
+        $itemNeweggArray = explode("==x==", $JSONNeweggresult);
 
-    $itemExplode = str_replace('\xa0', ' ', $value );
-    $itemExplode = str_replace("'", '"' ,$itemExplode);                  //replace single quotes with double quotes
-    $itemExplode = str_replace(': u"', ': "' , $itemExplode);      //remove unicode mark
-    array_push($allProducts, $itemExplode );
-        //echo $itemExplode;
-        //var_dump(json_decode($itemExplode));
+        foreach ($itemNeweggArray as $value2) {
+        //\xa0 is actually non-breaking space in Latin1 (ISO 8859-1), also chr(160). You should replace it with a space.
 
+            $itemNeweggExplode = str_replace('\xa0', ' ', $value2);
+            $itemNeweggExplode = str_replace("'", '"' , $itemNeweggExplode);                  //replace single quotes with double quotes
+            $itemNeweggExplode = str_replace(': u"', ': "' , $itemNeweggExplode);      //remove unicode mark
+            array_push($allProducts, $itemNeweggExplode);
+        }
     }
 
-
-    foreach ($itemArray2 as $value) {
-
-     // echo $value;
-
-      //\xa0 is actually non-breaking space in Latin1 (ISO 8859-1), also chr(160). You should replace it with a space.
-    $itemExplode = str_replace('\xa0', ' ', $value );
-    $itemExplode = str_replace("'", '"' ,$itemExplode);                  //replace single quotes with double quotes
-    $itemExplode = str_replace(': u"', ': "' , $itemExplode);      //remove unicode mark
-    array_push($allProducts, $itemExplode );
-    //echo $itemExplode;
-    //var_dump(json_decode($itemExplode));
-    }
 
 //############## GET CHEAPEST FROM DATABASE ####################
 //    $conn = setUpConnection();
@@ -114,9 +101,8 @@ if (isset($_POST['submitSearch']))
 
     $conn = setUpConnection();
 
-    for ($y = 0; $y < count($allProducts) - 1 ; $y++) {
+    for ($y = 0; $y < count($allProducts); $y++) {
         $currentItem = json_decode($allProducts[$y], true);         //decode JSON from python script
-
 
         //each JSON is in associative (Key-value pair) format
         // "URL"=>"", "Name"=>"", "Price"=>0.00, ...
@@ -137,7 +123,6 @@ if (isset($_POST['submitSearch']))
         //echo $row["webID"];
         //}
 
-
         if ($duplicate->num_rows === 0)          //if there is no duplicates
         {
             //need to attach '' for MySQL strings
@@ -147,9 +132,7 @@ if (isset($_POST['submitSearch']))
             $productID = "'" . str_replace(' ', '', $productID) ."'" ;      //strip spaces
 
             $name = "'" . $currentItem["Name"] . "'" ;
-
             $URL = "'" . $currentItem["URL"] . "'" ;
-
             $lowestPrice = $currentItem["Price"] ;
             $photoURL = "'" . $currentItem["Photo"] . "'"   ;
 
@@ -183,7 +166,6 @@ if (isset($_POST['submitSearch']))
 else if(isset($_POST['str2php'])){
 
     //echo "WISHLIST SAVE";
-
     //echo $_POST['str2php'];
 
 //now this is an comma-separated values that corresponds to webID of seleted Items
@@ -198,16 +180,20 @@ else if(isset($_POST['str2php'])){
 
     $conn = setUpConnection();
 
+    //Create query to find the product list of a certain user
     $theQuery = "SELECT *
                 FROM UserAccount
                 WHERE username ='" . $username . "'" .
                 " AND password ='" . $password . "'" .
                 " AND productList <> '';";
 
+    //Store result in previous
     $previous = $conn->query($theQuery);
 
+    //If previous has some results
     if ($previous->num_rows > 0)
     {
+        $row = $previous->fetch_assoc();
         $previousList = $row['productList'];
         $currentList = $_POST['str2php'];
 
@@ -215,9 +201,11 @@ else if(isset($_POST['str2php'])){
     //SAVE INTO database, update productList (WISHLIST) of logged-in user
     // we assume a user is logged in and these info are already stored in database
 
-        $sql = "UPDATE UserAccount SET productList = CONCAT('" . $currentList . ",', " . $previousList . "')
-                WHERE username ='" . $username . "'" .
+        $sql =  " UPDATE UserAccount SET productList = '" . $currentList . "," . $previousList . "'" .
+                " WHERE username ='" . $username . "'" .
                 " AND password ='" . $password . "';";
+
+        echo $sql;
     }
 
     else
@@ -228,12 +216,13 @@ else if(isset($_POST['str2php'])){
     //SAVE INTO database, update productList (WISHLIST) of logged-in user
     // we assume a user is logged in and these info are already stored in database
 
-        $sql = "UPDATE UserAccount SET productList ='" . $currentList . "'
-               WHERE username ='" . $username . "'" .
+        $sql = " UPDATE UserAccount SET productList ='" . $currentList . "'" .
+               " WHERE username ='" . $username . "'" .
                " AND password ='" . $password . "';";
+
+        echo $sql;
     }
 
-    echo $sql;
 
     if ($conn->query($sql) === TRUE)  ;
 
@@ -380,22 +369,13 @@ else if(isset($_POST['str2php'])){
                                     <!--form method="POST" name="productWish" action="wishlist.php"-->
                               	<?php
                                   	if (isset($allProducts))
-
-
-                                    //$webIDtemp = "";
-                                	//$productIDtemp = "";
-
+                                  	{
 
                                     for ($x = 0; $x < count($allProducts); $x++) {
-                                        echo ' <tr id=searchR' . $x . '> ';
-
-
                                         $currentItem = json_decode($allProducts[$x], true);
-
                                         $webID =  md5($currentItem["URL"]);
 
                                         //ADDED TO PRODUCE the webID
-
                                         $productID =  substr($currentItem["Name"], 20);
                                         $productID = "'" . str_replace(' ', '', $productID) ."'" ;      //strip spaces
 
@@ -404,11 +384,16 @@ else if(isset($_POST['str2php'])){
                                         //accumulate the webID and productID, a selection mechanism should determine only the ones selected
                                         //need a script which checks which ones are selected
 
-
-
-
                                         // $webIDtemp .=  md5($currentItem["URL"]) .  ",";
-			    						//########### GET THE PRICE OF THIS PRODUCT FROM DATABASE ########
+                                        $name = $currentItem["Name"];
+                                        $url = $currentItem["URL"];
+                                        $price = $currentItem["Price"];
+                                        $photo = $currentItem["Photo"];
+
+                                        if($name === "")
+                                            continue;
+
+        	    						//########### GET THE PRICE OF THIS PRODUCT FROM DATABASE ########
 			    						$conn = setUpConnection();
 				    					$sql = "SELECT lowestPrice
 					    						FROM Product
@@ -416,11 +401,15 @@ else if(isset($_POST['str2php'])){
 
     									$result = $conn->query($sql);
 
-										if ($result->num_rows > 0) {
+										if ($result->num_rows > 0)
+										{
     									    $row = $result->fetch_assoc();
-										  // while($row = $result->fetch_assoc()) {
 	    									$lowestPrice =  $row['lowestPrice'];
-									   // }
+		    							}
+
+		    							else
+		    							{
+		    							    $lowestPrice = $price;
 		    							}
 
 			    						$conn->close();
@@ -428,12 +417,8 @@ else if(isset($_POST['str2php'])){
 
 
 
-                                        $name = $currentItem["Name"];
-                                        $url = $currentItem["URL"];
-                                        $price = $currentItem["Price"];
-                                        $photo = $currentItem["Photo"];
 
-
+                                        echo ' <tr id=searchR' . $x . '> ';
                                         echo '<td class="text-left">' . $currentItem["Name"]  . '</td>';
 			    						echo '<td style="color:red" class="text-left">$' . $lowestPrice  . '</td>';
                                         echo '<td class="text-left"> $' . $currentItem["Price"]  . '</td>';
@@ -455,10 +440,11 @@ else if(isset($_POST['str2php'])){
                                             <input type='hidden' id='Photo' name='Photo' value='$photo' />
                                             </div>";
                                         echo "</td></tr>";
-                                        } //	echo $result;
+                                    } //	echo $result;
                                         //THIS WOULD PASS THE webID to POST for PHP when Save to Wishlist is clicked
                                         //HIDDEN INPUT
-                                   	?>
+                                  	}
+                                ?>
                    	            </form>
                             </div>
     	                </tbody>
