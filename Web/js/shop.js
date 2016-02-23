@@ -1,5 +1,4 @@
-
-    function makeTableData(nameOfProduct, searchID) {
+function makeTableData(nameOfProduct, searchID) {
 
             // Create the data elemet
             var item = document.createElement('td');
@@ -62,28 +61,30 @@
     });
 
     $("#submitWish").on("click", function(){
-        //var array = [];
         var array = [];
 
-        $(".table-hover #webID").each(function(){
-            array.push(this.value);
-            alert(this.value);
+        $(".Selected").each(function(){
+            array.push($(this).find("div #webID").attr('value'));
         });
 
+        var str = array[0];
 
+        for(var i = 1; i < array.length; i++){
+            str += "," + array[i];
+        }
 
+        //$("#submitWishList").val(str);
+
+        //$("#submitWishList").trigger('hidden');
 
         $.ajax({
-            type: "POST",
-            url: "http://apogee.koding.com/shop.php",
-            data: {source1 : array},
-
-            success: function(){
-                alert("OK");
-            }
+            type: 'post',
+            url: '/shop.php',
+            data: {str2php : str}
         });
 
 		$(".wishListItems").remove();
+        $('.table-hover tr .Selected').toggleClass("Selected");
     });
 
 

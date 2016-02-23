@@ -16,3 +16,26 @@ mysql
 sudo mysql
 mysql -q root
 mysql -u root -p
+git config --global user.emmail "dkwok.90@gmail.com"
+git config --global user.email "dkwok.90@gmail.com"
+git config --global user.name "apogee"
+ungit
+python
+kdm install python3
+kdm install pip
+sudo apt-get install pip
+sudo apt-get install python3
+oh okay
+LOL
+KPMk
+kdm install python3
+kpm install python3
+sudo apt-get update
+kpm install pip
+pip install bs4
+sudo apt-get update
+kpm install pip
+pip install bs4
+pip install beautifulsoup4
+apt-get install python-bs4
+sudo apt-get install python-bs4

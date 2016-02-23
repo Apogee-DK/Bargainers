@@ -11,6 +11,10 @@ if (isset($_POST['submitSearch']))
 	$JSONresult = exec('python ./php-python/NCIXsearch.py ' . $query );
 	$JSONresult2 = exec('python ./php-python/newegg.py ' . $query );
 
+
+//	echo $JSONresult;
+//	echo $JSONresult2;
+
 	//$myDict = json_decode(file_get_contents('/tmp/mydict'));
 
 	//decode the JSON $JSONresult
@@ -29,6 +33,7 @@ if (isset($_POST['submitSearch']))
   // echo "=======================================";
   // var_dump($itemArray);
   //echo $itemArray[0];
+
 
     $allProducts = array();
 
@@ -121,9 +126,7 @@ if (isset($_POST['submitSearch']))
 
         //###### CHECK if current product is already in Database #########
 
-        $sql = "SELECT *
-                FROM Product
-                WHERE webID = '" . $webID . "';";
+        $sql = "SELECT * FROM Product WHERE webID = '" . $webID . "';";
 
         // echo $sql;
         $duplicate = $conn->query($sql);
@@ -178,60 +181,90 @@ if (isset($_POST['submitSearch']))
   //###################################################################
 
 
-else if(isset($_POST['submitWishList'])){
+else if(isset($_POST['str2php'])){
 
-    echo "WISHLIST SAVE";
+    //echo "WISHLIST SAVE";
 
-    echo $_POST['source1'];
+    //echo $_POST['str2php'];
 
 //now this is an comma-separated values that corresponds to webID of seleted Items
 //echo $_POST['selectedWebIDs'];
 //this string should then be saved to the database, indicating the users wishlist
-    $conn = setUpConnection();
 
-    //TODO establish user AUTHENTICATION and registration
-    //SAVE INTO database, update productList (WISHLIST) of logged-in user
-    // we assume a user is logged in and these info are already stored in database
     $userID = 1;
     $username = "user1";
     $password = "userone";
     $address = "123 Fake Street";
     $phone = "123-456-7810";
 
-    $productList = implode(",", $_POST['source1']);
+    $conn = setUpConnection();
 
-    echo $productList;
+    //In order to grow the wishlist, I get a result from the query and turn that result into a string
+    $theQuery = "SELECT productList
+                    FROM UserAccount
+                    WHERE username ='" . $username . "'" .
+                    " AND password ='" . $password . "';";
 
-    $sql = "UPDATE UserAccount SET productList ='" . $productList . "'" .
-            " WHERE username ='" . $username . "'" .
-            " AND password ='" . $password . "';";
-        echo $sql;
+    $previous = $conn->query($theQuery);
+
+    if ($previous->num_rows == 1)
+    {
+        $previousList = $row['productList']; //should be only one result --> store string in previousList
+
+        $currentList = $_POST['str2php']; //from AJAX, get the string and store in currentList
+
+    //TODO establish user AUTHENTICATION and registration
+    //SAVE INTO database, update productList (WISHLIST) of logged-in user
+    // we assume a user is logged in and these info are already stored in database
+
+    //concatenate the string
+        $sql = "UPDATE UserAccount SET productList = CONCAT('" . $currentList . ",', '" . $previousList . "')
+                WHERE username ='" . $username . "'" .
+                " AND password ='" . $password . "';";
+    }
+
+    else
+    {
+        $currentList = $_POST['str2php'];
+
+    //TODO establish user AUTHENTICATION and registration
+    //SAVE INTO database, update productList (WISHLIST) of logged-in user
+    // we assume a user is logged in and these info are already stored in database
+
+        $sql = "UPDATE UserAccount SET productList ='" . $currentList . "'
+               WHERE username ='" . $username . "'" .
+               " AND password ='" . $password . "';";
+    }
+
+    echo $sql;
 
     if ($conn->query($sql) === TRUE)  ;
 
     else
         echo "Update Error: " . $sql . "<br>" . $conn->error;
+
+    $conn-->close();
+
 }
 ?>
 
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="google-site-verification" content="PtlTebFoue90iB2Sc9zKLJRERVBuDYqTO50mBJqCgt0"/>
-    <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;">
-    <link rel="stylesheet" href="http://apogee.koding.io//css/searchToolbar.css">
-    <link rel="stylesheet" href="http://apogee.koding.io//css/shoptable.css">
-    <link rel="stylesheet" href="http://apogee.koding.io//css/shoppage.css">
-    <link rel="stylesheet" href="http://apogee.koding.io//css/sidebar.css">
-    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="google-site-verification" content="PtlTebFoue90iB2Sc9zKLJRERVBuDYqTO50mBJqCgt0"/>
+        <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;">
+        <link rel="stylesheet" href="http://uakk7952a600.apogee.koding.io//css/searchToolbar.css">
+        <link rel="stylesheet" href="http://uakk7952a600.apogee.koding.io//css/shoptable.css">
+        <link rel="stylesheet" href="http://uakk7952a600.apogee.koding.io//css/shoppage.css">
+        <link rel="stylesheet" href="http://uakk7952a600.apogee.koding.io//css/sidebar.css">
+        <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
     <title>The Bargainers</title>
-  </head>
+    </head>
 
-  <body>
-
+    <body>
     <nav class="main-menu">
         <ul class="upper-side">
             <li class="main-menu-list">
@@ -277,13 +310,13 @@ else if(isset($_POST['submitWishList'])){
         </div>
 
 
-    <div id="wishMenu">
+        <div id="wishMenu">
             <table id="wishListMenu">
-                <thead>
-                    <tr>
-                        <th class="text-left">List of Items</th>
-                    </tr>
-                </thead>
+                    <thead>
+                        <tr>
+                            <th class="text-left">List of Items</th>
+                        </tr>
+                    </thead>
 
                 <tbody id="tableBody">
 
@@ -295,165 +328,150 @@ else if(isset($_POST['submitWishList'])){
                 <input id="submitWish" type="submit" value="Add to List" name="submitWish">
                 <input id="cancelWish" type="submit" value="Cancel" name="cancelWish">
             </span>
-    </div>
+        </div>
 
 
 
 <!-- CHEAPEST IN DB -->
-    <div>
-<?php if (isset($cheapestInDB))  { ?>
+        <div>
+            <?php if (isset($cheapestInDB))  { ?>
 
-    <h2> CHEAPEST IN THE DATABASE</h2>
-    <table border="1">
+            <h2> CHEAPEST IN THE DATABASE</h2>
+            <table border="1">
 
-        <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th>URL</th>
-        <th>Photo</th>
-        </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>URL</th>
+                    <th>Photo</th>
+                </tr>
 
-        <tr>
-        <td><?php echo $cheapestInDB['name'];  ?></td>
-        <td style="color:red"><?php echo $cheapestInDB['lowestPrice'];  ?></td>
-<?php echo '<td><a target="_blank" href=" ' .$cheapestInDB["URL"]  . ' ">' .$cheapestInDB["URL"] . '  </td>' ; ?>
-        <td><img src="<?php echo $cheapestInDB['photoURL'];  ?>" /></td>
-
-        </tr>
-    </table>
-<?php } ?>
-
-    </div>
-
-
-
-    <div id="mainPage">
-      <div id="searchQuery">
-            <form method="POST" name="productSearch" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-	            <input id="submitSearch" name="submitSearch" type="search" placeholder="Search">
-            </form>
+                <tr>
+                    <td><?php echo $cheapestInDB['name'];  ?></td>
+                    <td style="color:red"><?php echo $cheapestInDB['lowestPrice'];  ?></td>
+                    <?php echo '<td><a target="_blank" href=" ' .$cheapestInDB["URL"]  . ' ">' .$cheapestInDB["URL"] . '  </td>' ; ?>
+                    <td><img src="<?php echo $cheapestInDB['photoURL'];  ?>" /></td>
+                </tr>
+            </table>
+            <?php } ?>
         </div>
 
-        <div class="table-title">
-            <table class="table-fill">
-                <thead>
-                    <tr>
-                        <th class="text-left">Name</th>
-                        <th style="color:red" class="text-left">Lowest Price</th>
-                        <th class="text-left">Price</th>
-                        <th class="text-left">URL</th>
-                        <th class="text-left">Photo</th>
-                    </tr>
-                </thead>
 
-                <tbody class="table-hover">
-                                 <div>
-                                   <form id="myForm" method="POST" name="productWish" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+
+        <div id="mainPage">
+            <div id="searchQuery">
+                <form method="POST" name="productSearch" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+	                <input id="submitSearch" name="submitSearch" type="search" placeholder="Search">
+                </form>
+            </div>
+
+            <div class="table-title">
+                <table class="table-fill">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Name</th>
+                            <th style="color:red" class="text-left">Lowest Price</th>
+                            <th class="text-left">Price</th>
+                            <th class="text-left">URL</th>
+                            <th class="text-left">Photo</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="table-hover">
+                        <div>
+                            <form id="myForm" method="POST" name="productWish" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                                     <!--form method="POST" name="productWish" action="wishlist.php"-->
-                                     	<?php
-                                     	if (isset($allProducts))
+                              	<?php
+                                  	if (isset($allProducts))
 
 
-                                            $webIDtemp = "";
-                                	        $productIDtemp = "";
+                                    $webIDtemp = "";
+                                	$productIDtemp = "";
 
 
-                                    	    for ($x = 0; $x < count($allProducts); $x++) {
-                                    	        echo ' <tr id=searchR' . $x . '> ';
+                                    for ($x = 0; $x < count($allProducts); $x++) {
+                                        echo ' <tr id=searchR' . $x . '> ';
 
 
-                                                $currentItem = json_decode($allProducts[$x], true);
+                                        $currentItem = json_decode($allProducts[$x], true);
 
 
-                                            //ADDED TO PRODUCE the webID
-                                                $productID =  substr($currentItem["Name"], 20);
-                                                $productID = "'" . str_replace(' ', '', $productID) ."'" ;      //strip spaces
+                                        //ADDED TO PRODUCE the webID
+                                        $productID =  substr($currentItem["Name"], 20);
+                                        $productID = "'" . str_replace(' ', '', $productID) ."'" ;      //strip spaces
 
-                                            //TODO
-                                            //echo "<input type='checkbox'/>";
-                                            //accumulate the webID and productID, a selection mechanism should determine only the ones selected
+                                        //TODO
+                                        //echo "<input type='checkbox'/>";
+                                        //accumulate the webID and productID, a selection mechanism should determine only the ones selected
+                                        //need a script which checks which ones are selected
 
-                                            //need a script which checks which ones are selected
 
+                                        $webID =  md5($currentItem["URL"]);
+                                        // $webIDtemp .=  md5($currentItem["URL"]) .  ",";
+			    						//########### GET THE PRICE OF THIS PRODUCT FROM DATABASE ########
+			    						$conn = setUpConnection();
+				    					$sql = "SELECT lowestPrice
+					    						FROM Product
+						    					WHERE webID ='"  . $webID  . "';";
 
-                                                $webID =  md5($currentItem["URL"]);
-                                            // $webIDtemp .=  md5($currentItem["URL"]) .  ",";
+    									$result = $conn->query($sql);
 
-				    						//########### GET THE PRICE OF THIS PRODUCT FROM DATABASE ########
+										if ($result->num_rows > 0) {
+    									    $row = $result->fetch_assoc();
+										  // while($row = $result->fetch_assoc()) {
+	    									$lowestPrice =  $row['lowestPrice'];
+									   // }
+		    							}
 
-					    						$conn = setUpConnection();
-
-						    					$sql = "SELECT lowestPrice
-							    						FROM Product
-								    					WHERE webID ='"  . $webID  . "';";
-
-    											$result = $conn->query($sql);
-
-	    										if ($result->num_rows > 0) {
-
-		    									    $row = $result->fetch_assoc();
-											  // while($row = $result->fetch_assoc()) {
-			    									$lowestPrice =  $row['lowestPrice'];
-											   // }
-				    							}
-
-					    						$conn->close();
-											//###################################################
+			    						$conn->close();
+										//###################################################
 
 
 
-                                                $name = $currentItem["Name"];
-                                                $url = $currentItem["URL"];
-                                                $price = $currentItem["Price"];
-                                                $photo = $currentItem["Photo"];
+                                        $name = $currentItem["Name"];
+                                        $url = $currentItem["URL"];
+                                        $price = $currentItem["Price"];
+                                        $photo = $currentItem["Photo"];
 
 
-                                                echo '<td class="text-left">' . $currentItem["Name"]  . '</td>';
-					    						echo '<td style="color:red" class="text-left">$' . $lowestPrice  . '</td>';
-                                                echo '<td class="text-left"> $' . $currentItem["Price"]  . '</td>';
-                                                echo '<td class="text-left"><a target="_blank" href=" ' . $currentItem["URL"]  . ' ">' . $currentItem["URL"] . '  </td>';
-                                                echo '<td class="text-left"><img src="' . $currentItem["Photo"]  . '"/>';
+                                        echo '<td class="text-left">' . $currentItem["Name"]  . '</td>';
+			    						echo '<td style="color:red" class="text-left">$' . $lowestPrice  . '</td>';
+                                        echo '<td class="text-left"> $' . $currentItem["Price"]  . '</td>';
+                                        echo '<td class="text-left"><a target="_blank" href=" ' . $currentItem["URL"]  . ' ">' . $currentItem["URL"] . '  </td>';
+                                        echo '<td class="text-left"><img src="' . $currentItem["Photo"]  . '"/>';
+                                        echo "<div style='display:none;'>
+                                            <input type='hidden' id='webID' name='webID' value='$webID' />
+                                            </div>";
+                                        echo "<div style='display:none;'>
+                                            <input type='hidden' id='name' name='name' value='$name' />
+                                            </div>";
+                                        echo "<div style='display:none;'>
+                                            <input type='hidden' id='Price' name='Price' value='$price' />
+                                            </div>";
+                                        echo "<div style='display:none;'>
+                                            <input type='hidden' id='URL' name='url' value='$url' />
+                                            </div>";
+                                        echo "<div style='display:none;'>
+                                            <input type='hidden' id='Photo' name='Photo' value='$photo' />
+                                            </div>";
+                                        echo "</td></tr>";
+                                        } //	echo $result;
+                                        //THIS WOULD PASS THE webID to POST for PHP when Save to Wishlist is clicked
+                                        //HIDDEN INPUT
 
-                                                echo "<div style='display:none;'>
-                                                        <input type='hidden' id='webID' name='webID' value='$webID' />
-                                                    </div>";
+                                        //echo '<input id="submitWishList" type="hidden" value="Save List" name="submitWishList">';
+                                        //echo "<input type='hidden' id='selectedWebIDs' name='selectedWebIDs'/>";
 
-                                                echo "<div style='display:none;'>
-                                                        <input type='hidden' id='name' name='name' value='$name' />
-                                                </div>";
-
-                                                echo "<div style='display:none;'>
-                                                        <input type='hidden' id='Price' name='Price' value='$price' />
-                                                </div>";
-
-                                                echo "<div style='display:none;'>
-                                                    <input type='hidden' id='URL' name='url' value='$url' />
-                                                </div>";
-
-
-                                                echo "<div style='display:none;'>
-                                                    <input type='hidden' id='Photo' name='Photo' value='$photo' />
-                                                </div>";
-
-                                                echo "</td></tr>";
-
-
-                                            } //	echo $result;
-
-                                                //THIS WOULD PASS THE webID to POST for PHP when Save to Wishlist is clicked
-                                                 //HIDDEN INPUT
-                                            echo '<input id="submitWishList" type="hidden" value="Save List" name="submitWishList">';
-                                            //echo "<input type='hidden' id='selectedWebIDs' name='selectedWebIDs'/>";
-
-                                    	?>
-                    	            </form>
+                                   	?>
+                   	            </form>
                             </div>
-	                </tbody>
-	            </table>
-	        </div>
+    	                </tbody>
+	                </table>
+	            </div>
+            </div>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-        <script type="text/javascript" src="http://apogee.koding.io//js/shop.js"></script>
+        <script type="text/javascript" src="http://uakk7952a600.apogee.koding.io//js/shop.js"></script>
     </body>
 </html>

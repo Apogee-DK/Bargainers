@@ -33,8 +33,8 @@ if (isset($_SESSION['login_user']))
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="http://apogee.koding.io//css/sidebar.css">
-    <link rel="stylesheet" href="http://apogee.koding.io//css/viewpage.css">
+    <link rel="stylesheet" href="http://uakk7952a600.apogee.koding.io//css/sidebar.css">
+    <link rel="stylesheet" href="http://uakk7952a600.apogee.koding.io//css/viewpage.css">
   </head>
 
   <body>
