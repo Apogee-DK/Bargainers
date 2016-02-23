@@ -1,6 +1,7 @@
 <?php
 include('php-python/db_connect.php');              //needed for DB connection
 
+date_default_timezone_set('UTC');
 
 //print_r ($_POST);
 
@@ -50,7 +51,7 @@ if (isset($_POST['submitSearch']))
         //echo $itemExplode;
         //var_dump(json_decode($itemExplode));
 
-  }
+    }
 
 
     foreach ($itemArray2 as $value) {
@@ -64,30 +65,28 @@ if (isset($_POST['submitSearch']))
     array_push($allProducts, $itemExplode );
     //echo $itemExplode;
     //var_dump(json_decode($itemExplode));
-
-  }
-
+    }
 
 //############## GET CHEAPEST FROM DATABASE ####################
-    $conn = setUpConnection();
+//    $conn = setUpConnection();
+
 //SELECT A.webID, MIN(A.lowestPrice) AS minPrice
         //FROM
         //(
 
-
 //######### CHEAPEST IN DB #####################
 
 
-    $sql = "SELECT *
-        FROM Product
-        WHERE lowestPrice =  (SELECT MIN(lowestPrice)
-        FROM Product
-        WHERE name  LIKE '%" . $query   ."%') ;";
+//    $sql = "SELECT *
+//       FROM Product
+//        WHERE lowestPrice =  (SELECT MIN(lowestPrice)
+//        FROM Product
+//       WHERE name  LIKE '%" . $query   ."%') ;";
 
-    $result = $conn->query($sql);
+//    $result = $conn->query($sql);
 
 
-    if ($result->num_rows > 0) {
+//    if ($result->num_rows > 0) {
 
     // $cheapestInDB = $result->fetch_assoc();
 
@@ -96,9 +95,9 @@ if (isset($_POST['submitSearch']))
     // while($row = $result->fetch_assoc()) {
     //    echo $row['lowestPrice'];
     // }
-    }
+// }
 
-    $conn->close();
+//    $conn->close();
 
     //######################################################
 
@@ -115,7 +114,7 @@ if (isset($_POST['submitSearch']))
 
     $conn = setUpConnection();
 
-    for ($y = 0; $y < count($allProducts); $y++) {
+    for ($y = 0; $y < count($allProducts) - 1 ; $y++) {
         $currentItem = json_decode($allProducts[$y], true);         //decode JSON from python script
 
 
@@ -139,7 +138,7 @@ if (isset($_POST['submitSearch']))
         //}
 
 
-        if ($duplicate->num_rows == 0)          //if there is no duplicates
+        if ($duplicate->num_rows === 0)          //if there is no duplicates
         {
             //need to attach '' for MySQL strings
             $webID =  "'" . $webID . "'"   ;
@@ -148,6 +147,7 @@ if (isset($_POST['submitSearch']))
             $productID = "'" . str_replace(' ', '', $productID) ."'" ;      //strip spaces
 
             $name = "'" . $currentItem["Name"] . "'" ;
+
             $URL = "'" . $currentItem["URL"] . "'" ;
 
             $lowestPrice = $currentItem["Price"] ;
@@ -163,15 +163,14 @@ if (isset($_POST['submitSearch']))
 
             $date = "'" . date('Y-m-d h:i:s') . "'";
 
-            $sql = " INSERT INTO Product (webID, name, URL, productID, lowestPrice, DateAdded, photoURL, description ) VALUES ( $webID, $name, $URL, $productID, $lowestPrice,$date , $photoURL, 'some description')";
+            $sql = "INSERT INTO Product (webID, name, URL, productID, lowestPrice, DateAdded, photoURL, description ) VALUES ( $webID, $name, $URL, $productID, $lowestPrice,$date , $photoURL, 'some description')";
 
                    // echo $sql;
-
+            $conn->query($sql);
                 // ERROR INFO
-                    //if ($conn->query($sql) === TRUE)  ;
-                    //else
-                    //    echo "Error: " . $sql . "<br>" . $conn->error;
-
+            //if ($conn->query($sql) === TRUE);
+            //else
+            //    echo "Error: " . $sql . "<br>" . $conn->error;
         }
     } //	end for
 
@@ -199,26 +198,24 @@ else if(isset($_POST['str2php'])){
 
     $conn = setUpConnection();
 
-    //In order to grow the wishlist, I get a result from the query and turn that result into a string
-    $theQuery = "SELECT productList
-                    FROM UserAccount
-                    WHERE username ='" . $username . "'" .
-                    " AND password ='" . $password . "';";
+    $theQuery = "SELECT *
+                FROM UserAccount
+                WHERE username ='" . $username . "'" .
+                " AND password ='" . $password . "'" .
+                " AND productList <> '';";
 
     $previous = $conn->query($theQuery);
 
-    if ($previous->num_rows == 1)
+    if ($previous->num_rows > 0)
     {
-        $previousList = $row['productList']; //should be only one result --> store string in previousList
-
-        $currentList = $_POST['str2php']; //from AJAX, get the string and store in currentList
+        $previousList = $row['productList'];
+        $currentList = $_POST['str2php'];
 
     //TODO establish user AUTHENTICATION and registration
     //SAVE INTO database, update productList (WISHLIST) of logged-in user
     // we assume a user is logged in and these info are already stored in database
 
-    //concatenate the string
-        $sql = "UPDATE UserAccount SET productList = CONCAT('" . $currentList . ",', '" . $previousList . "')
+        $sql = "UPDATE UserAccount SET productList = CONCAT('" . $currentList . ",', " . $previousList . "')
                 WHERE username ='" . $username . "'" .
                 " AND password ='" . $password . "';";
     }
@@ -243,7 +240,7 @@ else if(isset($_POST['str2php'])){
     else
         echo "Update Error: " . $sql . "<br>" . $conn->error;
 
-    $conn-->close();
+    $conn->close();
 
 }
 ?>
@@ -385,8 +382,8 @@ else if(isset($_POST['str2php'])){
                                   	if (isset($allProducts))
 
 
-                                    $webIDtemp = "";
-                                	$productIDtemp = "";
+                                    //$webIDtemp = "";
+                                	//$productIDtemp = "";
 
 
                                     for ($x = 0; $x < count($allProducts); $x++) {
@@ -395,8 +392,10 @@ else if(isset($_POST['str2php'])){
 
                                         $currentItem = json_decode($allProducts[$x], true);
 
+                                        $webID =  md5($currentItem["URL"]);
 
                                         //ADDED TO PRODUCE the webID
+
                                         $productID =  substr($currentItem["Name"], 20);
                                         $productID = "'" . str_replace(' ', '', $productID) ."'" ;      //strip spaces
 
@@ -406,7 +405,8 @@ else if(isset($_POST['str2php'])){
                                         //need a script which checks which ones are selected
 
 
-                                        $webID =  md5($currentItem["URL"]);
+
+
                                         // $webIDtemp .=  md5($currentItem["URL"]) .  ",";
 			    						//########### GET THE PRICE OF THIS PRODUCT FROM DATABASE ########
 			    						$conn = setUpConnection();
@@ -458,10 +458,6 @@ else if(isset($_POST['str2php'])){
                                         } //	echo $result;
                                         //THIS WOULD PASS THE webID to POST for PHP when Save to Wishlist is clicked
                                         //HIDDEN INPUT
-
-                                        //echo '<input id="submitWishList" type="hidden" value="Save List" name="submitWishList">';
-                                        //echo "<input type='hidden' id='selectedWebIDs' name='selectedWebIDs'/>";
-
                                    	?>
                    	            </form>
                             </div>

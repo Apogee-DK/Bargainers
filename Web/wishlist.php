@@ -15,7 +15,7 @@ if (isset($_SESSION['login_user']))
 			        WHERE username = '"  .  $login_session   .  "' ;"  ;
 			$result2 = $conn2->query($sql2);
         	if ($result2->num_rows > 0) {
-        			$row = $result2->fetch_assoc();
+        			$row= $result2->fetch_assoc();
         			$wishListArray =  explode("," , $row['productList']);
         	}
         	$conn2->close();

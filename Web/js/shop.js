@@ -48,7 +48,7 @@ function makeTableData(nameOfProduct, searchID) {
             var print = "" + name + price + url + img + idData;
 
             if($(this).hasClass("Selected")){
-                document.getElementById('tableBody').appendChild(makeTableData(name, idOfTableRow)); //we're here
+                document.getElementById('tableBody').appendChild(makeTableData(idData, idOfTableRow)); //we're here
             }
 
             else{

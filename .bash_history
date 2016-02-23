@@ -39,3 +39,9 @@ pip install bs4
 pip install beautifulsoup4
 apt-get install python-bs4
 sudo apt-get install python-bs4
+ungit
+python /php-python newegg.py 'mouse'
+cd php-python
+cd Web
+cd php-python
+python newegg.py 'mouse'
