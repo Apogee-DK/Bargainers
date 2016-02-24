@@ -77,3 +77,23 @@ git push origin master
 git add node_modules
 git commit -m "Added the node modules needed to make the site work"
 git push origin master
+git add .
+git status
+git commit -m "Modified the a href= for each page and change the layout of shop and homepage"
+git push origin master
+git remote set-url origin git@github.com:Apogee-dk/Bargainers
+git push origin master
+git fetch
+git push origin master
+git status
+git add .
+git status
+git add .
+git status
+git remote set-url origin git@github.com:Apogee-dk/Bargainers
+git add .
+git status
+git add .
+git status
+git push origin master
+ungit

@@ -3,15 +3,15 @@
 @import url(http://fonts.googleapis.com/css?family=Titillium+Web:300);
 
 .fa-2x {
-  font-size: 2em;
+  font-size: 3em;
 }
 
 /*The section where the icon is held*/
 .fa {
   position: relative;
-  display: table-cell;
-  width: 50px;
-  height: 80px;
+  display: inline-block;
+  height: 40px;
+  width: 10%;
   text-align: center;
   vertical-align: middle;
   font-size: 25px;
@@ -20,7 +20,7 @@
 /*Menu when expanded*/
 .main-menu:hover,
 nav.main-menu.expanded {
-  width: 250px;
+  width: 175px;
   overflow: visible;
 }
 
@@ -30,15 +30,12 @@ Create javascript to handle clicks --> make it a smooth transition
 
 /*Menu not expanded*/
 .main-menu {
-  background: rgb(54, 25, 25); /* Fall-back for browsers that don't support rgba */
-  background: rgba(54, 25, 25, .9);; /*Background color in menu*/
+  background: rgb(20, 25, 25); /* Fall-back for browsers that don't support rgba */
+  background: rgba(20, 25, 25, .95);; /*Background color in menu*/
   border-right: 1px solid #e5e5e5; /*color of the lines*/
   position: fixed; /*Keep the menu in place*/
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 50px;
+  height: 100%;
+  width: 40px;
   overflow: hidden;
   -webkit-transition: width .02s linear;
   transition: width .02s linear;
@@ -55,16 +52,15 @@ Create javascript to handle clicks --> make it a smooth transition
 .main-menu li {
   position: relative;
   display: block;
-  margin: 0;
-  height: 100%;
-  width: 250px;
-  border-bottom: 1px solid #e5e5e5;
+  height: 10%;
+  width: 100%;
 }
 
 /*Left menu icon and text */
-.main-menu .upper-side li>a, .main-menu .bottom-side li>a {
+.main-menu .upper-side li>a, .main-menu .bottom-side li>a{
   position: relative;
   display: table;
+  width: 100%;
   color: #ffffff;
   border-collapse: collapse;
   border-spacing: 0;
@@ -77,27 +73,45 @@ Create javascript to handle clicks --> make it a smooth transition
   transition: all .1s linear;
 }
 
-/*The icon it self*/
-.main-menu .nav-icon {
+.main-menu .upper-side li>p {
   position: relative;
-  display: table-cell;
-  width: 60px;
-  height: 36px;
-  text-align: center;
+  display: table;
+  width: 100%;
+  color: #6d6d6d;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-family: arial;
   vertical-align: middle;
-  font-size: 18px;
+  font-size: 14px;
+  text-decoration: none;
+  text-align: center;
+  -webkit-transform: translateZ(0) scale(1, 1);
+  -webkit-transition: all .1s linear;
+  transition: all .1s linear;
 }
 
 /*The highlighting effect*/
+
+.main-menu li i{
+  position: relative;
+  text-align: center;
+  vertical-align: central;
+  display: table-cell;
+  padding: 6.5px;
+}
+
 .main-menu .nav-text {
   position: relative;
-  display: table-cell;
-  vertical-align: middle;
-  width: 200px;
+  display: block;
+  height: 50%;
+  width: 100%;
+  margin-top: 14px;
+  padding: 2px;
+  text-align: center;
   font-family: 'Titillium Web', sans-serif;
 }
 
-.main-menu > .bottom-side {
+.main-menu .bottom-side {
   position: fixed;
   left: 0;
   bottom: 0;

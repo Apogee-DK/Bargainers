@@ -25,21 +25,6 @@ label {
      display: block;
 }
 
-#wishMenu {
-    background: #ffd800;
-    color: #eee;
-    position: fixed; /*We want it to be a fixed position --> specifically drawn in place where we want it to be*/
-    height: auto;
-    overflow: visible;
-    width: 150px;
-    top: 0;
-    right: 0;
-}
-
-    #wishListMenu{
-        font-style: normal;
-    }
-
 
 a {
   color: #4A90E2;

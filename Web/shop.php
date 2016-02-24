@@ -270,11 +270,12 @@ else if(isset($_POST['str2php'])){
     </head>
 
     <body class="shoppage">
-    <div class="setSide-BarColor"></div>
+        <div class="setSide-BarColor"></div>
+
     <nav class="main-menu">
         <ul class="upper-side">
             <li class="main-menu-list">
-                <p><i class="fa fa-users fa-2x"></i> <span class="nav-text">Dexter Kwok</span></p>
+                <p><i class="fa fa-users fa-2x"></i> <span class="nav-text">Guest</span></p>
             </li>
 
             <li class="main-menu-list">
@@ -306,59 +307,30 @@ else if(isset($_POST['str2php'])){
         </ul>
     </nav>
 
-    <div id="container">
-        <div id="main" role="main" class="hellobox">
-            <h1 class="shop">The Bargainers</h1>
-        </div>
+        <div id="container">
+            <div id="main" role="main" class="hellobox">
+                <h1 class="shop">The Bargainers</h1>
+            </div>
 
+            <div id="wishMenu">
+                <table id="wishListMenu">
+                        <thead>
+                            <tr>
+                                <th class="text-left">List of Items</th>
+                            </tr>
+                        </thead>
 
-        <div id="wishMenu">
-            <table id="wishListMenu">
-                    <thead>
-                        <tr>
-                            <th class="text-left">List of Items</th>
-                        </tr>
-                    </thead>
+                    <tbody id="tableBody">
 
-                <tbody id="tableBody">
+                    </tbody>
 
-                </tbody>
+                </table>
 
-            </table>
-
-            <span>
-                <input id="submitWish" type="submit" value="Add to List" name="submitWish">
-                <input id="cancelWish" type="submit" value="Cancel" name="cancelWish">
-            </span>
-        </div>
-
-
-
-<!-- CHEAPEST IN DB -->
-        <div>
-            <?php if (isset($cheapestInDB))  { ?>
-
-            <h2> CHEAPEST IN THE DATABASE</h2>
-            <table border="1">
-
-                <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>URL</th>
-                    <th>Photo</th>
-                </tr>
-
-                <tr>
-                    <td><?php echo $cheapestInDB['name'];  ?></td>
-                    <td style="color:red"><?php echo $cheapestInDB['lowestPrice'];  ?></td>
-                    <?php echo '<td><a target="_blank" href=" ' .$cheapestInDB["URL"]  . ' ">' .$cheapestInDB["URL"] . '  </td>' ; ?>
-                    <td><img src="<?php echo $cheapestInDB['photoURL'];  ?>" /></td>
-                </tr>
-            </table>
-            <?php } ?>
-        </div>
-
-
+                <span>
+                    <input id="submitWish" type="submit" value="Add to List" name="submitWish">
+                    <input id="cancelWish" type="submit" value="Cancel" name="cancelWish">
+                </span>
+            </div>
 
         <div id="mainPage">
             <div id="searchQuery">
