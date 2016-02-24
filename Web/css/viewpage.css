@@ -9,7 +9,8 @@ html {
 
 /*The whole page*/
 body {
-	margin: 0 0 0 50px; /**/
+
+	margin: 0 0 0 0; /**/
 	font-size:15px;
 	line-height:1.231;
 	background:#eeeeee;

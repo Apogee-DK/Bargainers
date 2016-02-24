@@ -57,13 +57,14 @@ numOpen = min(10, len(elemNum))
 # <a> element, soap class="listing" , result links
 ####linkElems = soup.select('.listing a')
 
-linkPrices = soup.select(' td.line .listing strong')
+#modified the selection process... since NCIX includes bundles and they also have the strong tag
+linkPrices = soup.select('td.line .listing > strong')
 
 
 #list of Products
 productList = []
 
-for i in range(numOpen - 1) :
+for i in range(numOpen) :
 
 	elemLink = soup.select(itemRootString + str(i+1) + ' td.line div div span.listing a')
 	#elemPrice = soup.select(itemRootString + str(i+1) + ' td.line font.listing strong')
@@ -74,7 +75,7 @@ for i in range(numOpen - 1) :
 	###print(itemRootString + str(i+1) + ' td.line .listing strong')
 	#print ('PRICE:' +  linkPrices[i+2].getText())
 
-	tempDict = {'URL': '', 'Name': '', 'Price': 0.00, 'Photo': ''}
+	tempDict = {'URL': '', 'Name': '', 'Price': '', 'Photo': ''}
 	tempDict['URL'] = elemLink[0].get('href')
 	tempDict['Name'] = elemLink[0].getText()
 	#tempDict['Price'] =  elemPrice[0].getText()

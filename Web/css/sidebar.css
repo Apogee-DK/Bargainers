@@ -32,7 +32,8 @@ Create javascript to handle clicks --> make it a smooth transition
 
 /*Menu not expanded*/
 .main-menu {
-  background: #fbfbfb; /*Background color in menu*/
+  background: rgb(54, 25, 25); /* Fall-back for browsers that don't support rgba */
+  background: rgba(54, 25, 25, .9);; /*Background color in menu*/
   border-right: 1px solid #e5e5e5; /*color of the lines*/
   position: fixed; /*Keep the menu in place*/
   top: 0;
@@ -66,9 +67,9 @@ Create javascript to handle clicks --> make it a smooth transition
 .main-menu .upper-side li>a, .main-menu .bottom-side li>a {
   position: relative;
   display: table;
+  color: #ffffff;
   border-collapse: collapse;
   border-spacing: 0;
-  color: #555;
   font-family: arial;
   vertical-align: middle;
   font-size: 14px;

@@ -15,8 +15,11 @@ if (isset($_POST['submitSearch']))
 	//echo $JSONNCIXresult;
 	//echo $JSONNeweggresult;
 
-	$allProducts = array();
+	//There is an error with the blank space, there are some items that do not appear in the search result
+    //Does not give price at all
 
+
+	$allProducts = array();
 
 	$JSONNCIXresult = trim($JSONNCIXresult, '[');       //remove the extra brackets
 	$JSONNCIXresult = trim($JSONNCIXresult, ']');
@@ -134,7 +137,7 @@ if (isset($_POST['submitSearch']))
             $name = "'" . $currentItem["Name"] . "'" ;
             $URL = "'" . $currentItem["URL"] . "'" ;
             $lowestPrice = $currentItem["Price"] ;
-            $photoURL = "'" . $currentItem["Photo"] . "'"   ;
+            $photoURL = "'" . $currentItem["Photo"] . "'";
 
             //$currentItem["webID"] = $webID;
         	//prepared statements
@@ -352,7 +355,7 @@ else if(isset($_POST['str2php'])){
             </div>
 
             <div class="table-title">
-                <table class="table-fill">
+                <table id="tableSearch" class="table-fill">
                     <thead>
                         <tr>
                             <th class="text-left">Name</th>
@@ -369,7 +372,6 @@ else if(isset($_POST['str2php'])){
                                     <!--form method="POST" name="productWish" action="wishlist.php"-->
                               	<?php
                                   	if (isset($allProducts))
-                                  	{
 
                                     for ($x = 0; $x < count($allProducts); $x++) {
                                         $currentItem = json_decode($allProducts[$x], true);
@@ -390,9 +392,6 @@ else if(isset($_POST['str2php'])){
                                         $price = $currentItem["Price"];
                                         $photo = $currentItem["Photo"];
 
-                                        if($name === "")
-                                            continue;
-
         	    						//########### GET THE PRICE OF THIS PRODUCT FROM DATABASE ########
 			    						$conn = setUpConnection();
 				    					$sql = "SELECT lowestPrice
@@ -409,13 +408,11 @@ else if(isset($_POST['str2php'])){
 
 		    							else
 		    							{
-		    							    $lowestPrice = $price;
+		    							    $lowestPrice = "N/A";
 		    							}
 
 			    						$conn->close();
 										//###################################################
-
-
 
 
                                         echo ' <tr id=searchR' . $x . '> ';
@@ -443,7 +440,7 @@ else if(isset($_POST['str2php'])){
                                     } //	echo $result;
                                         //THIS WOULD PASS THE webID to POST for PHP when Save to Wishlist is clicked
                                         //HIDDEN INPUT
-                                  	}
+
                                 ?>
                    	            </form>
                             </div>
@@ -455,5 +452,13 @@ else if(isset($_POST['str2php'])){
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
         <script type="text/javascript" src="http://uakk7952a600.apogee.koding.io//js/shop.js"></script>
+        <script type="text/javascript" src="http://uakk7952a600.apogee.koding.io//js/sortingTable.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#tableSearch").tablesorter();
+            });
+        </script>
+
+
     </body>
 </html>

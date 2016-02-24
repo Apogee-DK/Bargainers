@@ -33,7 +33,6 @@ function makeTableData(nameOfProduct, searchID) {
 
 //Using anonymous function in order to avoid conflicts between script
 (function (){
-
     //The following is to include the jQuery script
     //Allows us to use jQuery notation
     var script = document.createElement('script');
@@ -48,14 +47,12 @@ function makeTableData(nameOfProduct, searchID) {
 
     //When the document, "webpage", is ready --> link document to the following ANONYMOUS function
     $(document).ready(function(){
-
         //Defining function
 
         //You can think of this as an if Function
         //The following links all objects with CLASS table-hover and ELEMENT tr to the click event
         // --> If you click this element, trigger this function
         $('.table-hover tr').click(function(){
-
             //toggleClass adds a class value to your object
             $(this).toggleClass("Selected");
 
@@ -135,8 +132,5 @@ function makeTableData(nameOfProduct, searchID) {
     $("#cancelWish").on("click", function(){
             $(".wishListItems").remove();
     });
-
-
-
 
 }) ();

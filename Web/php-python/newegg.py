@@ -62,7 +62,7 @@ just follow the HTML hierarchy
 '''
 
 
-for i in range(numOpen) :
+for i in range(numOpen + 1) :
 	elemLink = soup.select(itemRootString + str(i+1) + ' div.itemText div.wrapper a')
 	elemPrice = soup.select(itemRootString + str(i+1) + ' div.itemAction input')
 	elemPic = soup.select(itemRootString + str(i+1) + ' div.itemGraphics a.itemImage img')
