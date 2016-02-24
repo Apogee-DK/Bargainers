@@ -254,6 +254,7 @@ else if(isset($_POST['str2php'])){
     </head>
 
     <body>
+    <div class="setSide-BarColor"></div>
     <nav class="main-menu">
         <ul class="upper-side">
             <li class="main-menu-list">
@@ -361,8 +362,8 @@ else if(isset($_POST['str2php'])){
                             <th class="text-left">Name</th>
                             <th style="color:red" class="text-left">Lowest Price</th>
                             <th class="text-left">Price</th>
-                            <th class="text-left">URL</th>
-                            <th class="text-left">Photo</th>
+                            <th id="tableURL" class="text-left">URL</th>
+                            <th id="tablePhoto" class="text-left">Photo</th>
                         </tr>
                     </thead>
 
@@ -454,8 +455,10 @@ else if(isset($_POST['str2php'])){
         <script type="text/javascript" src="http://uakk7952a600.apogee.koding.io//js/shop.js"></script>
         <script type="text/javascript" src="http://uakk7952a600.apogee.koding.io//js/sortingTable.js"></script>
         <script type="text/javascript">
+            $("table thead th:eq(4)").data("sorter", false);
+            $("table thead th:eq(5)").data("sorter", false);
             $(document).ready(function(){
-                $("#tableSearch").tablesorter({sortList: [[2,0]]});
+                $("#tableSearch").tablesorter({ sortList: [[2,0]] });
             });
         </script>
 

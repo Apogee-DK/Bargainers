@@ -1,0 +1,7 @@
+node_modules
+.ssh
+.npm
+.git
+.config
+.pip
+.w3m

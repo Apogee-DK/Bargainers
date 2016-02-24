@@ -38,6 +38,7 @@ if (isset($_SESSION['login_user']))
   </head>
 
   <body>
+  <div class="setSide-BarColor"></div>
     <nav class="main-menu">
         <ul class="upper-side">
             <li class="main-menu-list">

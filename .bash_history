@@ -46,3 +46,9 @@ cd Web
 cd php-python
 python newegg.py 'mouse'
 ungit
+npm install tablesorter
+ungit
+ungit help
+ungit push
+git
+git add
