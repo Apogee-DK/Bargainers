@@ -455,7 +455,7 @@ else if(isset($_POST['str2php'])){
         <script type="text/javascript" src="http://uakk7952a600.apogee.koding.io//js/sortingTable.js"></script>
         <script type="text/javascript">
             $(document).ready(function(){
-                $("#tableSearch").tablesorter();
+                $("#tableSearch").tablesorter({sortList: [[2,0]]});
             });
         </script>
 
