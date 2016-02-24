@@ -158,6 +158,22 @@ if (isset($_POST['submitSearch']))
             //else
             //    echo "Error: " . $sql . "<br>" . $conn->error;
         }
+
+        else{
+            $row = $duplicate->fetch_assoc();
+            if($currentItem["Price"] < $row["lowestPrice"]){
+
+                $newPrice = $currentItem["Price"];
+
+                $sql = " UPDATE Product SET lowestPrice = $newPrice
+                         WHERE webID = '" . $webID . "';" ;
+            }
+
+        }
+
+
+
+
     } //	end for
 
     $conn->close();
