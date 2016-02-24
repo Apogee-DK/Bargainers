@@ -260,16 +260,16 @@ else if(isset($_POST['str2php'])){
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="google-site-verification" content="PtlTebFoue90iB2Sc9zKLJRERVBuDYqTO50mBJqCgt0"/>
         <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;">
-        <link rel="stylesheet" href="http://uakk7952a600.apogee.koding.io//css/searchToolbar.css">
-        <link rel="stylesheet" href="http://uakk7952a600.apogee.koding.io//css/shoptable.css">
-        <link rel="stylesheet" href="http://uakk7952a600.apogee.koding.io//css/shoppage.css">
-        <link rel="stylesheet" href="http://uakk7952a600.apogee.koding.io//css/sidebar.css">
+        <link rel="stylesheet" href="..//css/searchToolbar.css">
+        <link rel="stylesheet" href="..//css/shoptable.css">
+        <link rel="stylesheet" href="..//css/viewpage.css">
+        <link rel="stylesheet" href="..//css/sidebar.css">
         <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
     <title>The Bargainers</title>
     </head>
 
-    <body>
+    <body class="shoppage">
     <div class="setSide-BarColor"></div>
     <nav class="main-menu">
         <ul class="upper-side">
@@ -278,41 +278,37 @@ else if(isset($_POST['str2php'])){
             </li>
 
             <li class="main-menu-list">
-                <a href="http://apogee.koding.io/homepage_userloggedIn.html"><i class="fa fa-home fa-2x"></i> <span class=
+                <a href="homepage_userloggedIn.html"><i class="fa fa-home fa-2x"></i> <span class=
                 "nav-text">Home</span></a>
             </li>
 
             <li class="main-menu-list">
-                <a href="http://apogee.koding.io/shop.php"><i class="fa fa-shopping-cart fa-2x"></i> <span class=
+                <a href="shop.php"><i class="fa fa-shopping-cart fa-2x"></i> <span class=
                 "nav-text">Search Products</span></a>
             </li>
 
             <li class="main-menu-list">
-                <a href="http://apogee.koding.io/wishlist.php"><i class="fa fa-list fa-2x"></i> <span class=
+                <a href="wishlist.php"><i class="fa fa-list fa-2x"></i> <span class=
                 "nav-text">Your Wishlist</span></a>
             </li>
         </ul>
 
         <ul class="bottom-side">
             <li class="main-menu-list">
-                <a href="http://apogee.koding.io/accountsettings.html"><i class="fa fa-wrench fa-2x"></i>
+                <a href="accountsettings.html"><i class="fa fa-wrench fa-2x"></i>
                 <span class="nav-text">Account Settings</span></a>
             </li>
 
             <li class="main-menu-list">
-                <a href="http://apogee.koding.io/login.html"><i class="fa fa-power-off fa-2x"></i> <span class=
+                <a href="login.html"><i class="fa fa-power-off fa-2x"></i> <span class=
                 "nav-text">Logout</span></a>
             </li>
         </ul>
     </nav>
 
-
-
     <div id="container">
         <div id="main" role="main" class="hellobox">
-            <header><a href="http://koding.com">Koding.com</a></header>
-                <h1 class="shop">The Bargainers</h1>
-                <h2>Search Results</h2>
+            <h1 class="shop">The Bargainers</h1>
         </div>
 
 
@@ -468,8 +464,8 @@ else if(isset($_POST['str2php'])){
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-        <script type="text/javascript" src="http://uakk7952a600.apogee.koding.io//js/shop.js"></script>
-        <script type="text/javascript" src="http://uakk7952a600.apogee.koding.io//js/sortingTable.js"></script>
+        <script type="text/javascript" src="..//js/shop.js"></script>
+        <script type="text/javascript" src="..//js/sortingTable.js"></script>
         <script type="text/javascript">
             $("table thead th:eq(4)").data("sorter", false);
             $("table thead th:eq(5)").data("sorter", false);

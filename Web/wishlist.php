@@ -33,8 +33,8 @@ if (isset($_SESSION['login_user']))
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="http://uakk7952a600.apogee.koding.io//css/sidebar.css">
-    <link rel="stylesheet" href="http://uakk7952a600.apogee.koding.io//css/viewpage.css">
+    <link rel="stylesheet" href="..//css/sidebar.css">
+    <link rel="stylesheet" href="..//css/viewpage.css">
   </head>
 
   <body>
@@ -46,29 +46,29 @@ if (isset($_SESSION['login_user']))
             </li>
 
             <li class="main-menu-list">
-                <a href="http://apogee.koding.io/homepage_userloggedIn.html"><i class="fa fa-home fa-2x"></i> <span class=
+                <a href="homepage_userloggedIn.html"><i class="fa fa-home fa-2x"></i> <span class=
                 "nav-text">Home</span></a>
             </li>
 
             <li class="main-menu-list">
-                <a href="http://apogee.koding.io/shop.php"><i class="fa fa-shopping-cart fa-2x"></i> <span class=
+                <a href="shop.php"><i class="fa fa-shopping-cart fa-2x"></i> <span class=
                 "nav-text">Search Products</span></a>
             </li>
 
             <li class="main-menu-list">
-                <a href="http://apogee.koding.io/wishlist.php"><i class="fa fa-list fa-2x"></i> <span class=
+                <a href="wishlist.php"><i class="fa fa-list fa-2x"></i> <span class=
                 "nav-text">Your Wishlist</span></a>
             </li>
         </ul>
 
         <ul class="bottom-side">
             <li class="main-menu-list">
-                <a href="http://apogee.koding.io/accountsettings.html"><i class="fa fa-wrench fa-2x"></i>
+                <a href="accountsettings.html"><i class="fa fa-wrench fa-2x"></i>
                 <span class="nav-text">Account Settings</span></a>
             </li>
 
             <li class="main-menu-list">
-                <a href="http://apogee.koding.io/login.html"><i class="fa fa-power-off fa-2x"></i> <span class=
+                <a href="login.html"><i class="fa fa-power-off fa-2x"></i> <span class=
                 "nav-text">Logout</span></a>
             </li>
         </ul>

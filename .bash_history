@@ -52,3 +52,28 @@ ungit help
 ungit push
 git
 git add
+ungit
+git add .
+git status
+git commmit -m
+git commit -m
+git commit -m "Succes"
+git status
+git remote add origin git@github.comm:apogee-dk/Bargainers
+git push origin master
+git remote add origin git@github.com:apogee-dk/Bargainers
+git remote remove origin git@github.comm:apogee-dk/Bargainers
+git remote add origin git@github.com:apogee-dk/Bargainers
+git remote remove git@github.comm:apogee-dk/Bargainers
+git remote remove apogee-dk/Bargainers
+git remote remove git@github.comm:apogee-dk/Bargainers
+git remote set-url origin git@github.com:Apogee-dk/Bargainers
+git push origin master
+git add shop.php
+git add Web/shop.php
+git status
+git commit -m "Added update of Product Price in Database when lowestPrice is bigger"
+git push origin master
+git add node_modules
+git commit -m "Added the node modules needed to make the site work"
+git push origin master

@@ -9,35 +9,30 @@ html {
 
 /*The whole page*/
 body {
-	margin: 0; /**/
+    margin: 0;
 	font-size:15px;
 	line-height:1.231;
 	background:#eeeeee;
 }
 
-body .setSide-BarColor{
-    margin: 0;
-    position: fixed;
-    height: 100%;
-    width: 50px;
-    background:#000;
-}
+    .setSide-BarColor{
+        margin: 0;
+        position: fixed;
+        height: 100%;
+        width: 50px;
+        background:#000;
+    }
+
+    .shoppage #container{
+        margin: 0 100px 0 100px;
+    }
 
 body,button,input,select,textarea {
 	/*font-family: 'Helvetica Neue', Helvetica, Arial, 'sans-serif';*/
 	font-family: 'Source Sans Pro', sans-serif;
 	color:#222;
 }
-/*a {
-	color:#00e;
-}
-a:visited {
-	color:#551a8b;
-}
-a:hover {
-	color: #06e;
-}
-*/
+
 a {
   color: #4A90E2;
 }
@@ -96,8 +91,21 @@ header a {
 		opacity:1;
 	}
 }
-.hellobox {
-	height:600px;
+
+.homepage .hellobox {
+	height:500px;
+	width: 100%;
+	margin: 0;
+	text-align:center;
+	-webkit-animation:fadeIn 1s;
+	-moz-animation:fadeIn 1s;
+	background:#333 no-repeat center bottom;
+	background-size: cover;
+	border-top: 1px solid transparent
+}
+
+.shoppage .hellobox {
+	height:200px;
 	width: 100%;
 	margin: 0;
 	text-align:center;
@@ -141,11 +149,12 @@ header a {
 		-moz-transform:rotate(0deg)
 	}
 }
-h1 {
-	font-weight:900;
+
+.homepage h1 {
+	font-weight:500;
 	font-size:8em;
 	font-style: italic;
-	letter-spacing:-5px;
+	letter-spacing:5px;
 	color:#fff;
 	text-align:center;
 	margin: 0;
@@ -159,6 +168,28 @@ h1 {
 	-moz-transition:all .2s linear;
 	-webkit-transition:all .2s linear;
 }
+
+.shoppage h1{
+	font-weight:100;
+	font-size:3em;
+	font-style: italic;
+	letter-spacing:5px;
+	color:#fff;
+	text-align:center;
+	margin: 0;
+	text-shadow:0 0 30px rgba(58,93,125,0.67);
+	line-height:4em;
+	-webkit-animation:shakey .2s ease-in-out alternate;
+	-moz-animation:shakey .2s ease-in-out alternate;
+	-webkit-animation-delay:1s;
+	-webkit-transform:translate3d(0,0,0) transition:all .2s linear;
+	-o-transition:all .2s linear;
+	-moz-transition:all .2s linear;
+	-webkit-transition:all .2s linear;
+
+
+}
+
 h1:hover,h1:focus {
 	-webkit-animation:shakey .25s ease-in-out alternate;
 	-moz-animation:shakey .25s ease-in-out alternate;
