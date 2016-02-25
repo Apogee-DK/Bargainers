@@ -40,7 +40,7 @@ elemNum = soup.select('div.itemCell')			# all results with itemCell ID
 
 #1st 10 results in new tabs, min to know 10 vs number of links opened
 #(in case fewer than 10 results are gathered)
-numOpen = min(10, len(elemNum))
+numOpen = min(20, len(elemNum))
 
 #list of Products
 productList = []
@@ -62,7 +62,7 @@ just follow the HTML hierarchy
 '''
 
 
-for i in range(numOpen + 1) :
+for i in range(numOpen) :
 	elemLink = soup.select(itemRootString + str(i+1) + ' div.itemText div.wrapper a')
 	elemPrice = soup.select(itemRootString + str(i+1) + ' div.itemAction input')
 	elemPic = soup.select(itemRootString + str(i+1) + ' div.itemGraphics a.itemImage img')

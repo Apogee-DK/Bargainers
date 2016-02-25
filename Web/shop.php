@@ -13,7 +13,7 @@ if (isset($_POST['submitSearch']))
 	$JSONNeweggresult = exec('python ./php-python/newegg.py ' . $query );
 
 	//echo $JSONNCIXresult;
-	//echo $JSONNeweggresult;
+    //echo $JSONNeweggresult;
 
 	//There is an error with the blank space, there are some items that do not appear in the search result
     //Does not give price at all
@@ -24,7 +24,7 @@ if (isset($_POST['submitSearch']))
 	$JSONNCIXresult = trim($JSONNCIXresult, '[');       //remove the extra brackets
 	$JSONNCIXresult = trim($JSONNCIXresult, ']');
 
-	if($JSONNCIXresult !== ""){
+	if($JSONNCIXresult !== ''){
 	    $JSONNCIXresult = str_replace("}, {", "}==x=={" , $JSONNCIXresult);
         $itemNCIXArray = explode("==x==", $JSONNCIXresult);
 
@@ -42,7 +42,7 @@ if (isset($_POST['submitSearch']))
     $JSONNeweggresult = trim($JSONNeweggresult, '[');       //remove the extra brackets
 	$JSONNeweggresult = trim($JSONNeweggresult, ']');
 
-	if($JSONNeweggresult !== ""){
+	if($JSONNeweggresult !== ''){
 	    $JSONNeweggresult = str_replace("}, {", "}==x=={" , $JSONNeweggresult);
         $itemNeweggArray = explode("==x==", $JSONNeweggresult);
 
@@ -136,7 +136,7 @@ if (isset($_POST['submitSearch']))
 
             $name = "'" . $currentItem["Name"] . "'" ;
             $URL = "'" . $currentItem["URL"] . "'" ;
-            $lowestPrice = $currentItem["Price"] ;
+            $lowestPrice = str_replace(',', '', $currentItem["Price"]);
             $photoURL = "'" . $currentItem["Photo"] . "'";
 
             //$currentItem["webID"] = $webID;
@@ -161,9 +161,9 @@ if (isset($_POST['submitSearch']))
 
         else{
             $row = $duplicate->fetch_assoc();
-            if($currentItem["Price"] < $row["lowestPrice"]){
+            if(str_replace(',', '', $currentItem["Price"]) < $row["lowestPrice"]){
 
-                $newPrice = $currentItem["Price"];
+                $newPrice = str_replace(',', '', $currentItem["Price"]);
 
                 $sql = " UPDATE Product SET lowestPrice = $newPrice
                          WHERE webID = '" . $webID . "';" ;
@@ -301,7 +301,7 @@ else if(isset($_POST['str2php'])){
             </li>
 
             <li class="main-menu-list">
-                <a href="login.html"><i class="fa fa-power-off fa-2x"></i> <span class=
+                <a href="logout.php"><i class="fa fa-power-off fa-2x"></i> <span class=
                 "nav-text">Logout</span></a>
             </li>
         </ul>
@@ -374,7 +374,7 @@ else if(isset($_POST['str2php'])){
                                         // $webIDtemp .=  md5($currentItem["URL"]) .  ",";
                                         $name = $currentItem["Name"];
                                         $url = $currentItem["URL"];
-                                        $price = $currentItem["Price"];
+                                        $price = str_replace(',', '', $currentItem["Price"]);
                                         $photo = $currentItem["Photo"];
 
         	    						//########### GET THE PRICE OF THIS PRODUCT FROM DATABASE ########
@@ -405,7 +405,7 @@ else if(isset($_POST['str2php'])){
 			    						echo '<td style="color:red" class="text-left">$' . $lowestPrice  . '</td>';
                                         echo '<td class="text-left"> $' . $currentItem["Price"]  . '</td>';
                                         echo '<td class="text-left"><a target="_blank" href=" ' . $currentItem["URL"]  . ' ">' . $currentItem["URL"] . '  </td>';
-                                        echo '<td class="text-left"><img src="' . $currentItem["Photo"]  . '"/>';
+                                        echo '<td class="text-left"><img src="' . $currentItem["Photo"]  . '" height="70" width="100"/>';
                                         echo "<div style='display:none;'>
                                             <input type='hidden' id='webID' name='webID' value='$webID' />
                                             </div>";
