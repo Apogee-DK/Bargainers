@@ -72,21 +72,21 @@ if (isset($_SESSION['login_user']))
 	<!--------------------------------------------------------------->
 
 
-  <div class="setSide-BarColor"></div>
+
+
+  <div class="setSide-BarColor">
+  </div>
     <nav class="main-menu">
         <ul class="upper-side">
             <li class="main-menu-list">
                 <p><i class="fa fa-users fa-2x"></i> <span class="nav-text">
                 <?php
-
                     // DISPLAY NAME OF LOGGED-IN USER IF LOGGED IN
 
                     if (isset($name))
                     echo $name;
                     else
                         echo " ";        //what should we display here if user not logged in yet
-
-
                 ?>
                 </span></p>
             </li>
@@ -196,6 +196,5 @@ if (isset($_SESSION['login_user']))
 
 
         </div>
-    </div>
   </body>
 </html>

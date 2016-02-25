@@ -14,16 +14,16 @@ body {
 	background:#eeeeee;
 }
 
+#mainPage{
+    margin: 0 50px 0 90px;
+}
+
     .setSide-BarColor{
         margin: 0;
         position: fixed;
         height: 100%;
         width: 40px;
         background:#000;
-    }
-
-    .shoppage #container{
-        margin: 0 100px 0 100px;
     }
 
 #wishMenu {
@@ -484,3 +484,4 @@ body#not-found-page {
 	100% {
 		transform: translateY(10px)  translateX(0);
 	}
+}

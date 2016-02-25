@@ -17,6 +17,7 @@ if (isset($_POST['submitSearch']))
 
 	//There is an error with the blank space, there are some items that do not appear in the search result
     //Does not give price at all
+    //searching "check" gives us 4 blank results
 
 
 	$allProducts = array();
@@ -251,7 +252,9 @@ else if(isset($_POST['str2php'])){
     $conn->close();
 
 }
+
 ?>
+
 
 <!doctype html>
 <html>
@@ -265,12 +268,13 @@ else if(isset($_POST['str2php'])){
         <link rel="stylesheet" href="..//css/viewpage.css">
         <link rel="stylesheet" href="..//css/sidebar.css">
         <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-
     <title>The Bargainers</title>
     </head>
 
+
     <body class="shoppage">
-        <div class="setSide-BarColor"></div>
+    <div class="setSide-BarColor"></div>
+
 
     <nav class="main-menu">
         <ul class="upper-side">
@@ -307,7 +311,8 @@ else if(isset($_POST['str2php'])){
         </ul>
     </nav>
 
-        <div id="container">
+    <div id="main" class="main-scene">
+        <div id="container" class="m-aside scene_element scene_element--fadein">
             <div id="main" role="main" class="hellobox">
                 <h1 class="shop">The Bargainers</h1>
             </div>
@@ -332,30 +337,31 @@ else if(isset($_POST['str2php'])){
                 </span>
             </div>
 
-        <div id="mainPage">
-            <div id="searchQuery">
-                <form method="POST" name="productSearch" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-	                <input id="submitSearch" name="submitSearch" type="search" placeholder="Search">
-                </form>
-            </div>
+            <div id="mainPage" class="m-aside scene_element scene_element--fadeinup">
+                <div id="searchQuery">
+                    <form method="POST" name="productSearch" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+	                    <input id="submitSearch" name="submitSearch" type="search" placeholder="Search">
+                    </form>
+                </div>
 
-            <div class="table-title">
-                <table id="tableSearch" class="table-fill">
-                    <thead>
-                        <tr>
-                            <th class="text-left">Name</th>
-                            <th style="color:red" class="text-left">Lowest Price</th>
-                            <th class="text-left">Price</th>
-                            <th id="tableURL" class="text-left">URL</th>
-                            <th id="tablePhoto" class="text-left">Photo</th>
-                        </tr>
-                    </thead>
+                <div class="m-right-panel m-page scene_element scene_element--fadeinright">
+                    <div class="table-title">
+                        <table id="tableSearch" class="table-fill">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">Name</th>
+                                    <th style="color:red" class="text-left">Lowest Price</th>
+                                    <th class="text-left">Price</th>
+                                    <th id="tableURL" class="text-left">URL</th>
+                                    <th id="tablePhoto" class="text-left">Photo</th>
+                                </tr>
+                            </thead>
 
-                    <tbody class="table-hover">
-                        <div>
-                            <form id="myForm" method="POST" name="productWish" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                        <tbody class="table-hover">
+                            <div>
+                                <form id="myForm" method="POST" name="productWish" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                                     <!--form method="POST" name="productWish" action="wishlist.php"-->
-                              	<?php
+                              	    <?php
                                   	if (isset($allProducts))
 
                                     for ($x = 0; $x < count($allProducts); $x++) {
@@ -432,19 +438,23 @@ else if(isset($_POST['str2php'])){
     	                </tbody>
 	                </table>
 	            </div>
-            </div>
+	       </div>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-        <script type="text/javascript" src="..//js/shop.js"></script>
-        <script type="text/javascript" src="..//js/sortingTable.js"></script>
-        <script type="text/javascript">
-            $("table thead th:eq(4)").data("sorter", false);
-            $("table thead th:eq(5)").data("sorter", false);
-            $(document).ready(function(){
-                $("#tableSearch").tablesorter({ sortList: [[2,0]] });
-            });
-        </script>
+    </div>
+</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script type="text/javascript" src="..//js/shop.js"></script>
+    <script type="text/javascript" src="..//js/sortingTable.js"></script>
+
+    <script type="text/javascript">
+        $("table thead th:eq(4)").data("sorter", false);
+        $("table thead th:eq(5)").data("sorter", false);
+        $(document).ready(function(){
+            $("#tableSearch").tablesorter({ sortList: [[2,0]] });
+        });
+    </script>
 
 
     </body>

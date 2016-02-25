@@ -97,3 +97,8 @@ git add .
 git status
 git push origin master
 ungit
+git add.
+git add .
+git status
+git commit -m "Fixed Newegg empty result bug and changed layout"
+git push origin master
