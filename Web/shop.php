@@ -311,10 +311,10 @@ else if(isset($_POST['str2php'])){
         </ul>
     </nav>
 
-    <div id="main" class="main-scene">
-        <div id="container" class="m-aside scene_element scene_element--fadein">
-            <div id="main" role="main" class="hellobox">
-                <h1 class="shop">The Bargainers</h1>
+    <div id="main">
+        <div id="container">
+            <div role="banner" class="hellobox">
+                <h1 class="shop">The Bargainers - Shop for your products </h1>
             </div>
 
             <div id="wishMenu">
@@ -336,15 +336,20 @@ else if(isset($_POST['str2php'])){
                     <input id="cancelWish" type="submit" value="Cancel" name="cancelWish">
                 </span>
             </div>
+        </div>
 
-            <div id="mainPage" class="m-aside scene_element scene_element--fadeinup">
+
+        <div id="mainPage" role="dynamicPage">
+            <div id="searchables">
+
                 <div id="searchQuery">
                     <form method="POST" name="productSearch" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 	                    <input id="submitSearch" name="submitSearch" type="search" placeholder="Search">
                     </form>
                 </div>
 
-                <div class="m-right-panel m-page scene_element scene_element--fadeinright">
+
+                <div id="viewingTable">
                     <div class="table-title">
                         <table id="tableSearch" class="table-fill">
                             <thead>
@@ -405,12 +410,25 @@ else if(isset($_POST['str2php'])){
 			    						$conn->close();
 										//###################################################
 
+                                        //SHORTENING THE LINKS
+
+                                        $tempWebName = stristr(stristr($currentItem["URL"], "www.", false), ".com", true);
+                                        $tempWebName = strtoupper(substr($tempWebName, 4));
+
+                                        //ACCOUNTING FOR .CA WEBSITES
+
+                                        if($tempWebName === ""){
+                                            $tempWebName = stristr(stristr($currentItem["URL"], "www.", false), ".ca", true);
+                                            $tempWebName = strtoupper(substr($tempWebName, 4));
+                                        }
+
+                                        //###################################################
 
                                         echo ' <tr id=searchR' . $x . '> ';
                                         echo '<td class="text-left">' . $currentItem["Name"]  . '</td>';
 			    						echo '<td style="color:red" class="text-left">$' . $lowestPrice  . '</td>';
                                         echo '<td class="text-left"> $' . $currentItem["Price"]  . '</td>';
-                                        echo '<td class="text-left"><a target="_blank" href=" ' . $currentItem["URL"]  . ' ">' . $currentItem["URL"] . '  </td>';
+                                        echo '<td class="text-left"><a target="_blank" href=" ' . $currentItem["URL"]  . ' ">' .  $tempWebName . '  </td>';
                                         echo '<td class="text-left"><img src="' . $currentItem["Photo"]  . '" height="70" width="100"/>';
                                         echo "<div style='display:none;'>
                                             <input type='hidden' id='webID' name='webID' value='$webID' />
@@ -438,7 +456,7 @@ else if(isset($_POST['str2php'])){
     	                </tbody>
 	                </table>
 	            </div>
-	       </div>
+	        </div>
         </div>
     </div>
 </div>

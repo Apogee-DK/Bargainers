@@ -102,3 +102,12 @@ git add .
 git status
 git commit -m "Fixed Newegg empty result bug and changed layout"
 git push origin master
+git add .
+git status
+git commit -m "Table layout update + tried new transitions"
+git commit -m "Table layout update + tried new transitions"  
+git status
+git add .
+git status
+git uncommit
+ungit

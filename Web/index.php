@@ -12,7 +12,7 @@
 </head>
 <body class="html">
     <div id="container">
-        <div id="main" role="main" class="hellobox">
+        <div role="banner" class="hellobox">
             <header><a href="http://koding.com">Koding.com</a></header>
                 <h1>The Bargainers</h1>
                 <h2>Brought to you by Dexter Kwok and Lenmor Dimanalata</h2>
