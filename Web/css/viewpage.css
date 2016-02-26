@@ -17,8 +17,11 @@ body{
 
 #main{
     margin-left: 40px;
+}
+
+#main .scrollablePage{
     height: 100%;
-    width:100%;
+    width: 100%;
     background: #aaaaaa;
 }
 
@@ -32,10 +35,10 @@ body{
 	-moz-animation:fadeIn 1s;
 	background:#333 no-repeat center bottom;
 	background-size: cover;
-	border-top: 1px solid transparent
+	border-top: 1px solid transparent;
 }
 
-.hellobox{
+.shoppage .hellobox{
     position: fixed;
     height: 100px;
 	width: 100%;
@@ -97,15 +100,12 @@ body{
 
 /* TABLE SECTION */
 #main .scrollablePage #viewingTable{
-    width: 72%;
+    width: 75%;
     margin-left: 20%;
-    margin-right: 8%;
 }
 
 #main .scrollablePage #viewingTable .table-shop{
     margin-top: 100px;
-    margin-left: 10px;
-    margin-right: 10px;
 }
 
 #main .scrollablePage #viewingTable .table-shop .resultsTable {
