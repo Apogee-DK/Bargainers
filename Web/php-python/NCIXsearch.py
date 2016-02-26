@@ -51,7 +51,7 @@ elemNum = soup.select('tr td.line div span.listing')
 
 #1st 10 results in new tabs, min to know 10 vs number of links opened
 #(in case fewer than 10 results are gathered)
-numOpen = min(20, len(elemNum))
+numOpen = min(30, len(elemNum))
 
 
 # <a> element, soap class="listing" , result links

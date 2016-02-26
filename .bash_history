@@ -115,3 +115,7 @@ git add .
 git status
 git commit -m "Shortened URL name in search results table"
 git push origin master
+git add .
+git status
+git commit -m "Layout change for shop and combined most of the css files together"
+git push origin master

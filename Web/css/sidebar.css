@@ -34,6 +34,7 @@ Create javascript to handle clicks --> make it a smooth transition
   background: rgba(20, 25, 25, .95);; /*Background color in menu*/
   border-right: 1px solid #e5e5e5; /*color of the lines*/
   position: fixed; /*Keep the menu in place*/
+  top:0;
   height: 100%;
   width: 40px;
   overflow: hidden;

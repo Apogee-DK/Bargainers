@@ -7,22 +7,48 @@ html {
 }
 
 /*The whole page*/
-body {
+body{
     margin: 0;
 	font-size:15px;
+    height: 100%;
+    width: 100%;
 	line-height:1.231;
 }
 
-/*Contents within the page*/
-#scrollablePage{
-    margin: 0 0 0 40px;
+#main{
+    margin-left: 40px;
     height: 100%;
-    width: 100%;
+    width:100%;
     background: #aaaaaa;
 }
 
-/*WISH SECTION*/
+/*BANNER SECTION*/
+.homepage .hellobox {
+    position:fixed;
+	height:500px;
+	width: 100%;
+	text-align:center;
+	-webkit-animation:fadeIn 1s;
+	-moz-animation:fadeIn 1s;
+	background:#333 no-repeat center bottom;
+	background-size: cover;
+	border-top: 1px solid transparent
+}
 
+.hellobox{
+    position: fixed;
+    height: 100px;
+	width: 100%;
+	margin: 0;
+	top:0;
+	text-align:center;
+	-webkit-animation:fadeIn 1s;
+	-moz-animation:fadeIn 1s;
+	background:#333 no-repeat center bottom;
+	background-size: cover;
+}
+
+/*WISH SECTION*/
 #wishMenu {
     background: #ffd800;
     color: #eee;
@@ -38,46 +64,54 @@ body {
     font-style: normal;
 }
 
-/*BANNER SECTION*/
-
-.homepage .hellobox {
-	height:500px;
-	width: 100%;
-	margin: 0;
-	text-align:center;
-	-webkit-animation:fadeIn 1s;
-	-moz-animation:fadeIn 1s;
-	background:#333 no-repeat center bottom;
-	background-size: cover;
-	border-top: 1px solid transparent
-}
-.shoppage>.hellobox{
-    position:fixed;
+/*SIDEBAR SECTION*/
+/*Sidebar color underneath icons of sidebar menu*/
+.setSide-BarColor{
+    position: fixed;
+    margin: 0;
+    height: 100%;
+    width: 40px;
+    background:#000;
 }
 
-.hellobox{
-    height:100px;
-	width: 100%;
-	margin: 0;
-	text-align:center;
-	-webkit-animation:fadeIn 1s;
-	-moz-animation:fadeIn 1s;
-	background:#333 no-repeat center bottom;
-	background-size: cover;
+/*SEARCH SECTION*/
+/*Dedicated search section for shop page*/
+#main .scrollablePage #searchSection{
+    position: fixed;
+    height: 100%;
+    width: 15%;
+	background:#bbbbbb;
 	border-top: 1px solid transparent
+}
+
+#searchSection #searchQuery{
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+#searchSection .searchCriteria{
+    margin-top: 5px;
+    margin-left: 5px;
+    text-align: center;
 }
 
 /* TABLE SECTION */
-
-#viewingTable{
-    margin: 0 10px 0 310px;
+#main .scrollablePage #viewingTable{
+    width: 72%;
+    margin-left: 20%;
+    margin-right: 8%;
 }
 
-.resultsTable {
+#main .scrollablePage #viewingTable .table-shop{
+    margin-top: 100px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#main .scrollablePage #viewingTable .table-shop .resultsTable {
   background: white;
   border-radius:3px;
   border-collapse: collapse;
-  margin: 0;
   width: 100%;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   animation: float 5s infinite;
@@ -149,38 +183,6 @@ body {
   width: 5%; /*70px --> This value was set as the width size of the picture*/
 }
 
-
-/*SIDEBAR SECTION*/
-/*Sidebar color underneath icons of sidebar menu*/
-.setSide-BarColor{
-    margin: 0;
-    position: fixed;
-    height: 100%;
-    width: 40px;
-    background:#000;
-}
-
-/*SEARCH SECTION*/
-/*Dedicated search section for shop page*/
-#searchSection{
-    position: fixed;
-    height: 100%;
-    width: 300px;
-	background:#bbbbbb;
-}
-
-#searchSection>#searchQuery{
-    margin-top: 5px;
-    margin-left: 5px;
-}
-
-#searchSection>.searchCriteria{
-    margin-top: 5px;
-    margin-left: 5px;
-    text-align: center;
-}
-
-/*SEARCH SECTION*/
 
 body,button,input,select,textarea {
 	/*font-family: 'Helvetica Neue', Helvetica, Arial, 'sans-serif';*/

@@ -165,16 +165,14 @@ if (isset($_POST['submitSearch']))
             if(str_replace(',', '', $currentItem["Price"]) < $row["lowestPrice"]){
 
                 $newPrice = str_replace(',', '', $currentItem["Price"]);
+                $date = "'" . date('Y-m-d h:i:s') . "'";
 
-                $sql = " UPDATE Product SET lowestPrice = $newPrice
+                $sql = " UPDATE Product SET lowestPrice = $newPrice, DateAdded = $date
                          WHERE webID = '" . $webID . "';" ;
+
+                $conn->query($sql);
             }
-
         }
-
-
-
-
     } //	end for
 
     $conn->close();
@@ -311,38 +309,33 @@ else if(isset($_POST['str2php'])){
         </nav>
 
     <div id="main">
-
         <!-- TOP BANNER -->
-        <div id="container">
-            <div role="banner" class="hellobox">
-                <h1 class="shop">The Bargainers - Shop for your products </h1>
-            </div>
+        <div role="banner" class="hellobox">
+            <h1 class="shop">The Bargainers - Shop for your products </h1>
+        </div>
 
-            <!-- WISHLIST ICON -->
-            <div id="wishMenu">
-                <table id="wishListMenu">
-                        <thead>
-                            <tr>
-                                <th class="text-left">List of Items</th>
-                            </tr>
-                        </thead>
+        <!-- WISHLIST ICON -->
+        <div id="wishMenu">
+            <table id="wishListMenu">
+                    <thead>
+                        <tr>
+                            <th class="text-left">List of Items</th>
+                        </tr>
+                    </thead>
 
-                    <tbody id="tableBody">
+                <tbody id="tableBody">
+                    <!-- FILLED AS USER SELECTS ITEM FROM THE SEARCH RESULT TABLE-->
+                </tbody>
+            </table>
 
-                        <!-- FILLED AS USER SELECTS ITEM FROM THE SEARCH RESULT TABLE-->
-
-                    </tbody>
-                </table>
-
-                <span>
-                    <input id="submitWish" type="submit" value="Add to List" name="submitWish">
-                    <input id="cancelWish" type="submit" value="Cancel" name="cancelWish">
-                </span>
-            </div>
+            <span>
+                <input id="submitWish" type="submit" value="Add to List" name="submitWish">
+                <input id="cancelWish" type="submit" value="Cancel" name="cancelWish">
+            </span>
         </div>
 
         <!-- CONTENT PAGE -->
-        <div id="scrollablePage" role="dynamicPage">
+        <div class="scrollablePage" role="dynamicPage">
 
             <!-- SEARCH SECTION -->
             <div id="searchSection" class="beforeResults">
@@ -515,7 +508,7 @@ else if(isset($_POST['str2php'])){
     <script type="text/javascript">
         $("table thead th:eq(1)").data("sorter", false);
         $(document).ready(function(){
-            $("#tableSearch").tablesorter({ sortList: [[3,0]] });
+            $("#tableSearch").tablesorter({ sortList: [[5,0]] });
         });
     </script>
 

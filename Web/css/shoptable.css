@@ -18,7 +18,7 @@ th:last-child {
 /*Rows of the table*/
 tr {
   color:#666B85;
-  font-size:12px;
+  font-size:16px;
   font-weight:normal;
   text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
   -webkit-transition: all 0.1s ease; /* Safari and Chrome */
@@ -64,7 +64,7 @@ td {
   text-align:left;
   vertical-align:middle;
   font-weight:300;
-  font-size:14px;
+  font-size:16px;
   text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
   border-right: 1px solid #C1C3D1;
 }
