@@ -273,50 +273,52 @@ else if(isset($_POST['str2php'])){
 
 
     <body class="shoppage">
-    <div class="setSide-BarColor"></div>
+        <div class="setSide-BarColor"></div>
 
+        <nav class="main-menu">
+            <ul class="upper-side">
+                <li class="main-menu-list">
+                    <p><i class="fa fa-users fa-2x"></i> <span class="nav-text">Guest</span></p>
+                </li>
 
-    <nav class="main-menu">
-        <ul class="upper-side">
-            <li class="main-menu-list">
-                <p><i class="fa fa-users fa-2x"></i> <span class="nav-text">Guest</span></p>
-            </li>
+                <li class="main-menu-list">
+                    <a href="homepage_userloggedIn.html"><i class="fa fa-home fa-2x"></i> <span class=
+                    "nav-text">Home</span></a>
+                </li>
 
-            <li class="main-menu-list">
-                <a href="homepage_userloggedIn.html"><i class="fa fa-home fa-2x"></i> <span class=
-                "nav-text">Home</span></a>
-            </li>
+                <li class="main-menu-list">
+                    <a href="shop.php"><i class="fa fa-shopping-cart fa-2x"></i> <span class=
+                    "nav-text">Search Products</span></a>
+                </li>
 
-            <li class="main-menu-list">
-                <a href="shop.php"><i class="fa fa-shopping-cart fa-2x"></i> <span class=
-                "nav-text">Search Products</span></a>
-            </li>
+                <li class="main-menu-list">
+                    <a href="wishlist.php"><i class="fa fa-list fa-2x"></i> <span class=
+                    "nav-text">Your Wishlist</span></a>
+                </li>
+            </ul>
 
-            <li class="main-menu-list">
-                <a href="wishlist.php"><i class="fa fa-list fa-2x"></i> <span class=
-                "nav-text">Your Wishlist</span></a>
-            </li>
-        </ul>
+            <ul class="bottom-side">
+                <li class="main-menu-list">
+                    <a href="accountsettings.html"><i class="fa fa-wrench fa-2x"></i>
+                    <span class="nav-text">Account Settings</span></a>
+                </li>
 
-        <ul class="bottom-side">
-            <li class="main-menu-list">
-                <a href="accountsettings.html"><i class="fa fa-wrench fa-2x"></i>
-                <span class="nav-text">Account Settings</span></a>
-            </li>
-
-            <li class="main-menu-list">
-                <a href="logout.php"><i class="fa fa-power-off fa-2x"></i> <span class=
-                "nav-text">Logout</span></a>
-            </li>
-        </ul>
-    </nav>
+                <li class="main-menu-list">
+                    <a href="logout.php"><i class="fa fa-power-off fa-2x"></i> <span class=
+                    "nav-text">Logout</span></a>
+                </li>
+            </ul>
+        </nav>
 
     <div id="main">
+
+        <!-- TOP BANNER -->
         <div id="container">
             <div role="banner" class="hellobox">
                 <h1 class="shop">The Bargainers - Shop for your products </h1>
             </div>
 
+            <!-- WISHLIST ICON -->
             <div id="wishMenu">
                 <table id="wishListMenu">
                         <thead>
@@ -327,8 +329,9 @@ else if(isset($_POST['str2php'])){
 
                     <tbody id="tableBody">
 
-                    </tbody>
+                        <!-- FILLED AS USER SELECTS ITEM FROM THE SEARCH RESULT TABLE-->
 
+                    </tbody>
                 </table>
 
                 <span>
@@ -338,10 +341,11 @@ else if(isset($_POST['str2php'])){
             </div>
         </div>
 
+        <!-- CONTENT PAGE -->
+        <div id="scrollablePage" role="dynamicPage">
 
-        <div id="mainPage" role="dynamicPage">
-            <div id="searchables">
-
+            <!-- SEARCH SECTION -->
+            <div id="searchSection" class="beforeResults">
                 <div id="searchQuery">
                     <form method="POST" name="productSearch" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 	                    <input id="submitSearch" name="submitSearch" type="search" placeholder="Search">
@@ -349,66 +353,102 @@ else if(isset($_POST['str2php'])){
                 </div>
 
 
-                <div id="viewingTable">
-                    <div class="table-title">
-                        <table id="tableSearch" class="table-fill">
-                            <thead>
-                                <tr>
-                                    <th class="text-left">Name</th>
-                                    <th style="color:red" class="text-left">Lowest Price</th>
-                                    <th class="text-left">Price</th>
-                                    <th id="tableURL" class="text-left">URL</th>
-                                    <th id="tablePhoto" class="text-left">Photo</th>
-                                </tr>
-                            </thead>
+                <div id="sCategories" class="searchCriteria">
+                    <p>Price</p>
+                        <!-- Options -->
 
-                        <tbody class="table-hover">
-                            <div>
-                                <form id="myForm" method="POST" name="productWish" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                                    <!--form method="POST" name="productWish" action="wishlist.php"-->
-                              	    <?php
-                                  	if (isset($allProducts))
+                    <p>Retailer</p>
+                        <!-- Options -->
+
+                    <p>Date of Lowest Price</p>
+                        <!-- Options -->
+
+                </div>
+
+            </div>
+
+            <!-- TABLE RESULT SECTION -->
+            <div id='viewingTable'>
+                <div class='table-shop'>
+                    <?php
+                    // Table appears when there are search results
+                    if (isset($_POST['submitSearch'])){
+
+                    echo "<table id='tableSearch' class='resultsTable'>";
+                        echo "<thead>";
+                            echo "<tr>";
+                                echo "<th id='tablePhoto' class='text-left'></th>";
+                                echo "<th id='tableName' class='text-left'>Name</th>";
+                                echo "<th id='tableURL' class='text-left'>Retailer</th>";
+                                echo "<th id='tableDate' class='text-left'>Date</th>";
+                                echo "<th id='tableLowPrice' style='color:red' class='text-left'>Lowest Price</th>";
+                                echo "<th id='tablePrice' class='text-left'>Price</th>";
+                            echo "</tr>";
+                        echo "</thead>";
+
+                        echo "<tbody class='table-hover'>";
+                            echo "<div>";
+                                //Not exactly sure why I don't need another '>'
+                                //When I add another '>' to end the statement, a '>' gets printed on the page
+                                echo '<form id="myForm" method="POST" name="productWish" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);php?>';
+
+
+                              	    if (isset($allProducts))
 
                                     for ($x = 0; $x < count($allProducts); $x++) {
                                         $currentItem = json_decode($allProducts[$x], true);
                                         $webID =  md5($currentItem["URL"]);
-
                                         //ADDED TO PRODUCE the webID
                                         $productID =  substr($currentItem["Name"], 20);
                                         $productID = "'" . str_replace(' ', '', $productID) ."'" ;      //strip spaces
 
-                                        //TODO
-                                        //echo "<input type='checkbox'/>";
-                                        //accumulate the webID and productID, a selection mechanism should determine only the ones selected
-                                        //need a script which checks which ones are selected
 
-                                        // $webIDtemp .=  md5($currentItem["URL"]) .  ",";
+                                            //TODO
+                                            //echo "<input type='checkbox'/>";
+                                            //accumulate the webID and productID, a selection mechanism should determine only the ones selected
+                                            //need a script which checks which ones are selected
+
+                                            // $webIDtemp .=  md5($currentItem["URL"]) .  ",";
                                         $name = $currentItem["Name"];
                                         $url = $currentItem["URL"];
                                         $price = str_replace(',', '', $currentItem["Price"]);
                                         $photo = $currentItem["Photo"];
 
         	    						//########### GET THE PRICE OF THIS PRODUCT FROM DATABASE ########
-			    						$conn = setUpConnection();
-				    					$sql = "SELECT lowestPrice
-					    						FROM Product
-						    					WHERE webID ='"  . $webID  . "';";
+		    	    					$conn = setUpConnection();
+			    	    				$sql = "SELECT lowestPrice
+				    	    					FROM Product
+					    	    				WHERE webID ='"  . $webID  . "';";
 
     									$result = $conn->query($sql);
 
 										if ($result->num_rows > 0)
-										{
-    									    $row = $result->fetch_assoc();
-	    									$lowestPrice =  $row['lowestPrice'];
-		    							}
+    									{
+	    								    $row = $result->fetch_assoc();
+    	    								$lowestPrice =  $row['lowestPrice'];
+	    	    						}
 
-		    							else
-		    							{
-		    							    $lowestPrice = "N/A";
-		    							}
+	    		    					else
+	    			    				{
+	    				    			    continue; //THIS ONLY HAPPENS IF THERE IS NO LOWEST PRICE, BUT THERE WILL ALWAYS BE ONE
+	    					    		}
+
+
+	    					    		$sql = "SELECT DateAdded
+				    	    					FROM Product
+					    	    				WHERE webID ='"  . $webID  . "';";
+
+                                        $result = $conn->query($sql);
+
+										if ($result->num_rows > 0)
+    									{
+	    								    $row = $result->fetch_assoc();
+    	    								$date = $row["DateAdded"];
+    	    								$date = substr($date, 0, 10);
+    	    							}
 
 			    						$conn->close();
-										//###################################################
+    									//###################################################
 
                                         //SHORTENING THE LINKS
 
@@ -425,16 +465,18 @@ else if(isset($_POST['str2php'])){
                                         //###################################################
 
                                         echo ' <tr id=searchR' . $x . '> ';
-                                        echo '<td class="text-left">' . $currentItem["Name"]  . '</td>';
-			    						echo '<td style="color:red" class="text-left">$' . $lowestPrice  . '</td>';
-                                        echo '<td class="text-left"> $' . $currentItem["Price"]  . '</td>';
-                                        echo '<td class="text-left"><a target="_blank" href=" ' . $currentItem["URL"]  . ' ">' .  $tempWebName . '  </td>';
-                                        echo '<td class="text-left"><img src="' . $currentItem["Photo"]  . '" height="70" width="100"/>';
+                                        echo '<td class="text-left"><img src="' . $currentItem["Photo"]  . '" height="60" width="80">';
                                         echo "<div style='display:none;'>
                                             <input type='hidden' id='webID' name='webID' value='$webID' />
                                             </div>";
                                         echo "<div style='display:none;'>
+                                            <input type='hidden' id='Photo' name='Photo' value='$photo' />
+                                            </div>";
+                                        echo "<div style='display:none;'>
                                             <input type='hidden' id='name' name='name' value='$name' />
+                                            </div>";
+                                        echo "<div style='display:none;'>
+                                            <input type='hidden' id='Date' name='date' value='$date' />
                                             </div>";
                                         echo "<div style='display:none;'>
                                             <input type='hidden' id='Price' name='Price' value='$price' />
@@ -442,24 +484,28 @@ else if(isset($_POST['str2php'])){
                                         echo "<div style='display:none;'>
                                             <input type='hidden' id='URL' name='url' value='$url' />
                                             </div>";
-                                        echo "<div style='display:none;'>
-                                            <input type='hidden' id='Photo' name='Photo' value='$photo' />
-                                            </div>";
-                                        echo "</td></tr>";
+                                        echo "</td>";
+
+                                        echo '<td class="text-left">' . $currentItem["Name"]  . '</td>';
+                                        echo '<td class="text-right"><a target="_blank" href=" ' . $currentItem["URL"]  . ' "> ' . $tempWebName .  ' </td>';
+		        						echo '<td class="text-right">' . $date  . '</td>';
+		        						echo '<td style="color:red" class="text-right">$' . $lowestPrice  . '</td>';
+                                        echo '<td class="text-right"> $' . $currentItem["Price"]  . '</td>';
+                                        echo "</tr>";
                                     } //	echo $result;
                                         //THIS WOULD PASS THE webID to POST for PHP when Save to Wishlist is clicked
                                         //HIDDEN INPUT
 
-                                ?>
-                   	            </form>
-                            </div>
-    	                </tbody>
-	                </table>
+               	            echo "</form>";
+                        echo "</div>";
+	                echo "</tbody>";
+                echo "</table>";
+                }
+                ?>
 	            </div>
-	        </div>
+            </div>
         </div>
     </div>
-</div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
@@ -467,10 +513,9 @@ else if(isset($_POST['str2php'])){
     <script type="text/javascript" src="..//js/sortingTable.js"></script>
 
     <script type="text/javascript">
-        $("table thead th:eq(4)").data("sorter", false);
-        $("table thead th:eq(5)").data("sorter", false);
+        $("table thead th:eq(1)").data("sorter", false);
         $(document).ready(function(){
-            $("#tableSearch").tablesorter({ sortList: [[2,0]] });
+            $("#tableSearch").tablesorter({ sortList: [[3,0]] });
         });
     </script>
 

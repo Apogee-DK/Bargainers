@@ -111,3 +111,7 @@ git add .
 git status
 git uncommit
 ungit
+git add .
+git status
+git commit -m "Shortened URL name in search results table"
+git push origin master

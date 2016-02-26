@@ -63,6 +63,7 @@ function makeTableData(nameOfProduct, searchID) {
             //$(this) is the object in question which FINDS the object which has div "key" with attribute
             name = $(this).find($("div #name")).attr('value');
             price = $(this).find($("div #Price")).attr('value');
+            date = $(this).find($("div #Date")).attr('value');
             url = $(this).find($("div #URL")).attr('value');
             img = $(this).find($("div #Photo")).attr('value');
             idData = $(this).find($("div #webID")).attr('value'); //<------THIS THING IS THE WEB ID

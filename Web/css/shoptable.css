@@ -1,50 +1,9 @@
-
 /*Special thanks to alassetter on codepen.io for the table template!*/
-
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
 
-div.table-title {
+div.table-shop {
   display: block;
   width: 100%;
-}
-
-.table-title h3 {
-   color: #000;
-   font-size: 20px;
-   font-weight: 200;
-   font-style: normal;
-   font-family: "Roboto", helvetica, arial, sans-serif;
-   text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
-   text-transform:uppercase;
-   margin: 0;
-}
-
-/*** Table Styles **/
-
-.table-fill {
-  background: white;
-  border-radius:3px;
-  border-collapse: collapse;
-  height: 200px;
-  margin: 0;
-  width: 100%;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  animation: float 5s infinite;
-  vertical-align: middle;
-}
-
-/*Title name of tables*/
-.table-title #tableSearch th {
-  color:#D5DDE5;
-  background:#1b1e24;
-  border-bottom:4px solid #9ea7af;
-  border-right: 1px solid #343a45;
-  font-size: medium;
-  font-weight: 100;
-  padding: 10px;
-  text-align:left;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  vertical-align:middle;
 }
 
 th:first-child {
@@ -105,7 +64,7 @@ td {
   text-align:left;
   vertical-align:middle;
   font-weight:300;
-  font-size:18px;
+  font-size:14px;
   text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
   border-right: 1px solid #C1C3D1;
 }

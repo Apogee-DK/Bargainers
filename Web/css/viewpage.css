@@ -11,20 +11,17 @@ body {
     margin: 0;
 	font-size:15px;
 	line-height:1.231;
-	background:#eeeeee;
 }
 
-#mainPage{
-    margin: 0 50px 0 90px;
+/*Contents within the page*/
+#scrollablePage{
+    margin: 0 0 0 40px;
+    height: 100%;
+    width: 100%;
+    background: #aaaaaa;
 }
 
-    .setSide-BarColor{
-        margin: 0;
-        position: fixed;
-        height: 100%;
-        width: 40px;
-        background:#000;
-    }
+/*WISH SECTION*/
 
 #wishMenu {
     background: #ffd800;
@@ -37,10 +34,153 @@ body {
     right: 0;
 }
 
-    #wishListMenu{
-        font-style: normal;
-    }
+#wishListMenu{
+    font-style: normal;
+}
 
+/*BANNER SECTION*/
+
+.homepage .hellobox {
+	height:500px;
+	width: 100%;
+	margin: 0;
+	text-align:center;
+	-webkit-animation:fadeIn 1s;
+	-moz-animation:fadeIn 1s;
+	background:#333 no-repeat center bottom;
+	background-size: cover;
+	border-top: 1px solid transparent
+}
+.shoppage>.hellobox{
+    position:fixed;
+}
+
+.hellobox{
+    height:100px;
+	width: 100%;
+	margin: 0;
+	text-align:center;
+	-webkit-animation:fadeIn 1s;
+	-moz-animation:fadeIn 1s;
+	background:#333 no-repeat center bottom;
+	background-size: cover;
+	border-top: 1px solid transparent
+}
+
+/* TABLE SECTION */
+
+#viewingTable{
+    margin: 0 10px 0 310px;
+}
+
+.resultsTable {
+  background: white;
+  border-radius:3px;
+  border-collapse: collapse;
+  margin: 0;
+  width: 100%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  animation: float 5s infinite;
+  vertical-align: middle;
+}
+
+/*Title name of tables*/
+.table-shop #tableSearch th {
+  position: fixed;
+  font-size: medium;
+  font-weight: 100;
+  padding: 10px;
+  text-align:left;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  vertical-align:middle;
+}
+
+.table-shop #tableSearch #tableName{
+  border-bottom:4px solid #9ea7af;
+  border-right: 1px solid #343a45;
+  position: relative;
+  color:#D5DDE5;
+  background:#1b1e24;
+  width: 60%;
+}
+
+.table-shop #tableSearch #tableDate{
+  border-bottom:4px solid #9ea7af;
+  border-right: 1px solid #343a45;
+  position: relative;
+  color:#D5DDE5;
+  background:#1b1e24;
+  width: 10%;
+}
+
+.table-shop #tableSearch #tableLowPrice{
+  border-bottom:4px solid #9ea7af;
+  border-right: 1px solid #343a45;
+  position: relative;
+  color:#D5DDE5;
+  background:#1b1e24;
+  width: 10%;
+}
+
+.table-shop #tableSearch #tablePrice{
+  border-bottom:4px solid #9ea7af;
+  border-right: 1px solid #343a45;
+  position: relative;
+  color:#D5DDE5;
+  background:#1b1e24;
+  width: 10%;
+}
+
+.table-shop #tableSearch #tableURL{
+  border-bottom:4px solid #9ea7af;
+  border-right: 1px solid #343a45;
+  position: relative;
+  color:#D5DDE5;
+  background:#1b1e24;
+  width: 5%;
+}
+
+.table-shop #tableSearch #tablePhoto{
+  border-bottom:4px solid #9ea7af;
+  border-right: 1px solid #343a45;
+  position: relative;
+  color:#D5DDE5;
+  background:#1b1e24;
+  width: 5%; /*70px --> This value was set as the width size of the picture*/
+}
+
+
+/*SIDEBAR SECTION*/
+/*Sidebar color underneath icons of sidebar menu*/
+.setSide-BarColor{
+    margin: 0;
+    position: fixed;
+    height: 100%;
+    width: 40px;
+    background:#000;
+}
+
+/*SEARCH SECTION*/
+/*Dedicated search section for shop page*/
+#searchSection{
+    position: fixed;
+    height: 100%;
+    width: 300px;
+	background:#bbbbbb;
+}
+
+#searchSection>#searchQuery{
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+#searchSection>.searchCriteria{
+    margin-top: 5px;
+    margin-left: 5px;
+    text-align: center;
+}
+
+/*SEARCH SECTION*/
 
 body,button,input,select,textarea {
 	/*font-family: 'Helvetica Neue', Helvetica, Arial, 'sans-serif';*/
@@ -107,30 +247,6 @@ header a {
 	}
 }
 
-.homepage .hellobox {
-	height:500px;
-	width: 100%;
-	margin: 0;
-	text-align:center;
-	-webkit-animation:fadeIn 1s;
-	-moz-animation:fadeIn 1s;
-	background:#333 no-repeat center bottom;
-	background-size: cover;
-	border-top: 1px solid transparent
-}
-
-.shoppage .hellobox {
-	height:200px;
-	width: 100%;
-	margin: 0;
-	text-align:center;
-	-webkit-animation:fadeIn 1s;
-	-moz-animation:fadeIn 1s;
-	background:#333 no-repeat center bottom;
-	background-size: cover;
-	border-top: 1px solid transparent
-}
-
 .wrap {
 	width: 660px;
 	margin: 0 auto;
@@ -192,8 +308,8 @@ header a {
 	color:#fff;
 	text-align:center;
 	margin: 0;
-	text-shadow:0 0 30px rgba(58,93,125,0.67);
-	line-height:4em;
+	text-shadow:0 0 10px rgba(58,93,125,0.67);
+	line-height:2em;
 	-webkit-animation:shakey .2s ease-in-out alternate;
 	-moz-animation:shakey .2s ease-in-out alternate;
 	-webkit-animation-delay:1s;
