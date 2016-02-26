@@ -27,9 +27,9 @@ body{
 
 /*BANNER SECTION*/
 .homepage .hellobox {
-    position:fixed;
 	height:500px;
 	width: 100%;
+	top:0;
 	text-align:center;
 	-webkit-animation:fadeIn 1s;
 	-moz-animation:fadeIn 1s;

@@ -123,3 +123,10 @@ git add .
 git status
 git commit -m "Shop page update"
 git push origin master
+sudo apt-get SoupStrainer
+sudo pip install  SoupStrainer
+pip install SoupStrainer
+git add .
+git status
+git commit -m "Fixed Shop layout"
+git push origin master
